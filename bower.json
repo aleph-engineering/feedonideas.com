@@ -1,0 +1,25 @@
+{
+  "name": "toi",
+  "description": "Share your ideas around the world",
+  "main": "",
+  "authors": [
+    "reFucktor <hmvalcarcel@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "toi",
+    "turn",
+    "ideas",
+    "TurnOnIdeas"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -35,6 +35,7 @@ const CommentSchema = new Schema({
     author       : { type: String },
     name         : { type: String },
     email        : { type: String },
+    body         : { type: String },
     creationDate : { type: Date, default: new Date()}
 });
 
@@ -51,7 +52,6 @@ const UserProfileSchema = new Schema({
     name            : { type: String },
     email           : { type: String },
     reg_date        : { type: Date, default: new Date()},
-    feed            : [FeedSchema],
     googleUser      : GoogleUserSchema,
     facebookUser    : FacebookUserSchema,
     linkedInUser    : LinkedInUserSchema,

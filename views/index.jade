@@ -1,5 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    include controls/navbar
+    include controls/home
+    script.
+        var io = io.connect('http://localhost:3000')

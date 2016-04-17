@@ -23,8 +23,8 @@ const passportConfig = function(app){
 
     require('./facebook')(app);
     require('./google')(app);
-    require('./linkedin')(app);
-    require('./github')(app);
+    //require('./linkedin')(app);
+    //require('./github')(app);
 };
 
 module.exports = passportConfig;

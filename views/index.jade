@@ -1,7 +1,9 @@
 extends layout
 
 block content
-    include controls/navbar
-    include controls/home
-    script.
-        var io = io.connect('http://localhost:3000')
+    header
+        include controls/navbar
+    main
+        div(class='row')
+            block center_content
+    script(src='/javascripts/main.js')

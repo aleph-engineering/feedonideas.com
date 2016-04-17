@@ -3,6 +3,12 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+const LocalUser = new Schema({
+    username    : { type: String },
+    email       : { type: String },
+    password    : { type: String }
+});
+
 const GoogleUserSchema = new Schema({
     id          : { type: String },
     name        : { type: String },
@@ -33,20 +39,20 @@ const GitHubUserSchema = new Schema({
 
 const CommentSchema = new Schema({
     author       : { type: String },
-    name         : { type: String },
-    email        : { type: String },
     body         : { type: String },
     creationDate : { type: Date, default: new Date()}
 });
 
 const FeedSchema = new Schema({
-    author       : { type: String },
-    number       : { type : Number},
+    topicId     : { type: String },
+    authorId     : { type: String },
+    body         : { type: String },
     creationDate : { type: Date, default: new Date()},
-    ups          : { type : Number},
-    downs        : { type : Number},
+    ups          : [{ type: String, default: []}],
+    downs        : [{ type: String, default: [] }],
     comments     : [CommentSchema]
 });
+
 const UserProfileSchema = new Schema({
     availableVotes  : { type: Number},
     name            : { type: String },
@@ -56,6 +62,21 @@ const UserProfileSchema = new Schema({
     facebookUser    : FacebookUserSchema,
     linkedInUser    : LinkedInUserSchema,
     gitHubUser      : GitHubUserSchema
+});
+
+const TopicSchema = new Schema({
+    name            : { type: String, unique: true },
+    roomId          : { type: String, unique: true },
+    authorId        : { type: String },
+    pictureUrl      : { type: String },
+    siteUrl         : { type: String },
+    topicDesc       : { type: String },
+    available       : { type: Boolean, default: false }
+});
+
+const NotificationSchema =new Schema({
+    receiver        : { type: String },
+    message         : { type: String }
 });
 
 const CrashLogSchema = new Schema({
@@ -70,6 +91,7 @@ module.exports = {
     GitHubUser: mongoose.model('gitHubUser', GitHubUserSchema),
     UserProfile: mongoose.model('userProfile', UserProfileSchema),
     Feed: mongoose.model('feed', FeedSchema),
+    Topic: mongoose.model('topic', TopicSchema),
     Comment: mongoose.model('comment', CommentSchema),
     CrashLog : mongoose.model('crashLog', CrashLogSchema)
 };

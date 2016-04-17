@@ -1,5 +1,15 @@
-nav.toi-navbar{
-    background-color: transparent!important;
-    box-shadow: none;
-
+.nav-wrapper li:not(.avatar):hover{
+    transition: background-color .7s;
+    background-color: #004e51;
+    /*background-color: #006064;*/
+}
+.nav-wrapper li.avatar{
+    padding: 2em 3em 0 3em;
+    background-color: #004e51;
+}
+.nav-wrapper li.avatar img.responsive-img{
+    /*box-shadow: ;*/
+}
+li.avatar .profiles-link i:not(:last-child){
+    margin-right: .2em;
 }

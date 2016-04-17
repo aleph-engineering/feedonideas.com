@@ -49,7 +49,7 @@ const facebookConfig = function(app){
                                 newProfile.save(function(err){
                                     if (!err) return done(null, newProfile);
                                     else {
-                                        console.log(err);}
+                                        console.log("ERROR: " + err);}
                                 });
                             }
                         });
@@ -62,7 +62,7 @@ const facebookConfig = function(app){
 
     app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }),
         function(req, res) {
-            res.redirect('/ce');
+            res.redirect('/');
         });
 };
 

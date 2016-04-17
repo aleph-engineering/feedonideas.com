@@ -4,11 +4,9 @@
  * Module dependencies.
  */
 
-var app = require('../app').app,
-    mongoStore = require('../app').mongoStore,
+var app = require('../app'),
     debug = require('debug')('toi:server'),
-    http = require('http'),
-    passportSocket = require('passport.socketio');
+    http = require('http');
 
 
 /**
@@ -28,19 +26,6 @@ var server = http.createServer(app);
  * Create configuration with socket.io
  */
 var io = require('socket.io')(server);
-io.use(passportSocket.authorize({
-    key   : "toi.session.id",
-    secret:       process.env.EXPRESS_SESSION_KEY,    // the session_secret to parse the cookie
-    store:        mongoStore,        // we NEED to use a sessionstore. no memorystore please
-    success: onAuthorizeSuccess
-}));
-io.on('connection', function(socket){
-    console.log('a user connected: '+ socket.id);
-    console.log(socket.request.user);
-    socket.on('disconnect', function(){
-        console.log('user disconnected');
-    });
-});
 
 function onAuthorizeSuccess(data, accept){
     console.log('successful connection to socket.io');
@@ -50,7 +35,7 @@ function onAuthorizeSuccess(data, accept){
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+//server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 

@@ -7,13 +7,10 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     session = require('express-session'),
-    mongoStore = require('connect-mongo')(session);
+    mongoStore = require('connect-mongo')(session),
+    compression = require('compression');
 
 var app = express();
-
-//noinspection JSLint,JSHint
-var routes = require('./routes/index'),
-    users = require('./routes/users');
 
 // view engine setup
 //noinspection JSLint,JSHint
@@ -28,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+app.use(compression());
 
 //
 /**
@@ -42,19 +40,30 @@ mongoose.connect(process.env.MONGOLAB_URI || local_db.DEVELOPMENT_URL);
  */
 var mongoStoreConfig = new mongoStore({
     mongooseConnection: mongoose.connection,
-    ttl: 7 * 24 * 60 * 60 // = 14 days.
+    ttl: 7 * 24 * 60 * 60 *1000 // = 7 days.
 });
 app.use(session({
     key   : "toi.session.id",
     secret: process.env.EXPRESS_SESSION_KEY,
-    cookie: {maxAge: 7 * 24 * 60 * 60},
+    cookie: {maxAge: 7 * 24 * 60 * 60 * 1000},
     resave: false,
     saveUninitialized: true,
     store: mongoStoreConfig
 }));
 
-app.use('/', routes);
-app.use('/users', users);
+/**
+ * Configurations for passport
+ */
+require('./app/passport')(app);
+
+/**
+ * Configuration for socket.io
+ */
+var port = process.env.PORT || '3000',
+    io = require('socket.io').listen(app.listen(port));
+
+//routes
+require('./app/routes')(app,io);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -89,9 +98,4 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-module.exports = { // jshint ignore:line
-    app: app,
-    mongoStore: mongoStoreConfig,
-    cookieParser: cookieParser()
-};
+module.exports = app;

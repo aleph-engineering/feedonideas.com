@@ -15,6 +15,14 @@ const userController = {
                     callback(error,model);
                 });
         }
+    },
+    getUserById: function(id, callback){
+        if (typeof callback === "function") {
+            userProfile.findById(id, function(error, model){
+                callback(error, model);
+            });
+        }
     }
+
 };
 module.exports = userController;

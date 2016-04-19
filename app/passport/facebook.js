@@ -16,12 +16,9 @@ const facebookConfig = function(app){
         },
         function(accessToken, refreshToken, profile, done) {
             console.log(profile);
-            console.log(profile._json.picture);
             userProfile.findOne({ 'facebookUser.id': profile._json.id })
                 .then(function(user){
-                    if(user){
-                        return done(null, user);
-                    }
+                    if(user) return done(null, user);
                     else {
                         var newFacebookUser = new facebookUser({
                             id : profile._json.id,

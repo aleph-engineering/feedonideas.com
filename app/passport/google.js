@@ -29,7 +29,7 @@ const googleConfig = function(app){
                             birthday : profile._json.birthday
                         });
 
-                        userController.checkProfileExist(profile._json.email, function(error, model){
+                        userController.checkProfileExist(profile.email, function(error, model){
                             if(error) { return done(null, null) }
                             if(model){
                                 model.googleUser = newGoogleUser;
@@ -59,7 +59,7 @@ const googleConfig = function(app){
 
     app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }),
         function(req, res) {
-            res.redirect('/ce');
+            res.redirect('/');
         });
 };
 

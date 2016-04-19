@@ -40,7 +40,15 @@ var topicController = {
                 callback(error, model);
             })
         }
+    },
+    getMaxUps(topicId, callback){
+        if (typeof callback === "function") {
+            topic.findById(topicId, function(error, model){
+                callback(error, model.maxUpsPerUser);
+            })
+        }
     }
+
 
 
 };

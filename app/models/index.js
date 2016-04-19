@@ -34,7 +34,14 @@ const LinkedInUserSchema = new Schema({
 const GitHubUserSchema = new Schema({
     id          : { type: String},
     name        : { type: String},
-    email       : { type: String }
+    username    : { type: String},
+    email       : { type: String },
+    avatar      : { type: String},
+    profileUrl  : { type: String},
+    company     : { type: String},
+    gender      : { type: String},
+    location    : { type: String}
+
 });
 
 const CommentSchema = new Schema({
@@ -71,7 +78,10 @@ const TopicSchema = new Schema({
     pictureUrl      : { type: String },
     siteUrl         : { type: String },
     topicDesc       : { type: String },
-    available       : { type: Boolean, default: false }
+    available       : { type: Boolean, default: false },
+    maxUpsPerUser   : { type: Number },
+    maxDownsPerUser : { type: Number },
+    votesPerUser    : { type: Number }
 });
 
 const NotificationSchema =new Schema({

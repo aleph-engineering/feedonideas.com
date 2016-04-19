@@ -1,0 +1,31 @@
+.feeds .feed-text{
+    max-width: 90%;
+    font-size: .85rem!important;
+}
+.feeds .secondary-content a.btn-floating{
+    margin-left: .55em;
+}
+.feeds .chip .material-icons{
+    margin: 0!important;
+    max-width: 25px;
+    min-width: 25px;
+    padding-left: 0;
+}
+.feeds .chip{
+    margin-right: .65em;
+}
+@media (max-width: 768px) {
+    .feeds .feed-text {
+        max-width: 75%;
+    }
+}
+@media (min-width: 993px) and (max-width: 1200px) {
+    .feeds .feed-text {
+        max-width: 85%;
+    }
+}
+@media (min-width: 1201px) and (max-width: 1600px){
+    .feeds .feed-text {
+        max-width: 80%;
+    }
+}

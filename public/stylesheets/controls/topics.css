@@ -1,0 +1,8 @@
+.topic-card .card-image{
+    max-height: 80%!important;
+}
+.topic-card .card-image > .card-title{
+    width: 100%;
+    background-color: rgba(0,0,0,.5);
+    padding: 10px 20px;
+}

@@ -19,7 +19,7 @@ const GoogleUserSchema = new Schema({
 });
 
 const FacebookUserSchema = new Schema({
-    id          : { type: String},
+    id          : { type: String },
     name        : { type: String },
     email       : { type: String },
     avatar      : { type: String },
@@ -55,8 +55,8 @@ const FeedSchema = new Schema({
     authorId     : { type: String },
     body         : { type: String },
     creationDate : { type: Date, default: new Date()},
-    ups          : [{ type: String, default: []}],
-    downs        : [{ type: String, default: [] }],
+    ups          : [{ type: String, default: [String] }],
+    downs        : [{ type: String, default: [String] }],
     comments     : [CommentSchema]
 });
 

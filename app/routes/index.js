@@ -5,7 +5,8 @@ const controllers = require('../controllers'),
 var userController = controllers.userController,
     topicController= controllers.topicController,
     feedController = controllers.feedController,
-    userSession = {};
+    userSession = {}, roomIdent="";
+var testRoutes = require('./test');
 
 var routeConfig = function(app, io){
     /**
@@ -14,14 +15,20 @@ var routeConfig = function(app, io){
     app.use(function(req, res, next) {
         if (req.user) {
             userSession = req.session.passport;
-            console.log(userSession);
             next();
         } else {
             req.session.error = 'Access denied!';
             res.render('login');
         }
     });
-
+    app.get('/test/getMaxUps', function(req, res, next){
+        var id = "5711c8e29d4f45e34c8a8156";
+        topicController.getMaxUps(id, function(error, model){
+            if (error) console.log("ERROR: " + error);
+            console.log("MODEL: " + model);
+            res.redirect('/');
+        });
+    });
     app.get('/', function(req, res, next) {
         res.render('index', { title: 'Express', profile: {}});
     });
@@ -47,8 +54,17 @@ var routeConfig = function(app, io){
             res.render('controls/mytopics', {topics: model});
         });
     });
-    app.get('/feeds', function(req, res, next){
-        res.render('controls/feeds');
+    app.get('/feeds/:roomId', function(req, res, next){
+        var roomId = req.params.roomId;
+        console.log("ROOM ID: " + roomId);
+        topicController.getTopicByRoomId(roomId, function(error, model){
+            if(!error){
+                feedController.getFeedsByTopic(model, function(error, model){
+                    res.render('controls/feeds', {feeds: model, roomId: roomId});
+                    return;
+                });
+            }
+        });
     });
 
     app.post('/topics/create', function(req, res, next){
@@ -63,6 +79,15 @@ var routeConfig = function(app, io){
         topicController.saveNewTopic(name,userSession.user,pictureUrl,siteUrl,topicDesc, function(error,model){
             if(error) console.log(error);
             res.redirect('http://localhost:3001/mytopics');
+        })
+    });
+    app.post('/feeds/create/:roomId', function(req, res, next){
+        const body = req.body.feedBody,
+            roomId = req.params.roomId;
+        roomIdent = roomId;
+        feedController.saveNewFeedWithRoomId(roomId, userSession.user, body, function(error, model){
+            res.cookie('room.id', roomId);
+            res.render('controls/feeds', {});
         })
     });
     var socketConfig = io.on('connection', function (socket) {

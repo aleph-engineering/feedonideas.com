@@ -2,10 +2,11 @@
 
 const models = require('../models'),
     userProfile = models.UserProfile,
+    topicController = require('./topicController'),
     feed = models.Feed;
 
 var feedController = {
-    saveNewFeed(topicId, authorId, text, callback){
+    saveNewFeedWithTopicId(topicId, authorId, text, callback){
         if (typeof callback === "function") {
             var newFeed = new feed({
                 topicId: topicId,
@@ -15,6 +16,23 @@ var feedController = {
             newFeed.save(function(error, model){
                 callback(error,model);
             })
+        }
+    },
+    saveNewFeedWithRoomId(roomId, authorId, text, callback){
+        if (typeof callback === "function") {
+            topicController.getTopicByRoomId(roomId, function(error, model){
+                if(!error){
+                    var newFeed = new feed({
+                        topicId: model,
+                        authorId: authorId,
+                        body: text
+                    });
+                    newFeed.save(function(error, model){
+                        callback(error,model);
+                    })
+                }
+            })
+
         }
     },
     getFeedsByTopic(topicId, callback){
@@ -58,8 +76,18 @@ var feedController = {
                 callback(error, model.length);
             })
         }
+    },
+    getFeedsByRoomId(roomId, callback){
+        if (typeof callback === "function") {
+            topicController.getTopicByRoomId(roomId, function(error, model){
+                if(!error){
+                    feed.find({topicId: model._id}, function(error, models){
+                        callback(error, models);
+                    })
+                }
+            })
+        }
     }
-
 
 };
 

@@ -47,8 +47,14 @@ var topicController = {
                 callback(error, model.maxUpsPerUser);
             })
         }
+    },
+    getTopicByRoomId(roomId, callback){
+        if (typeof callback === "function") {
+            topic.findOne({roomId: roomId}, function(error, model){
+                callback(error, model._id);
+            })
+        }
     }
-
 
 
 };

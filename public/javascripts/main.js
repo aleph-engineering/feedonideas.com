@@ -22,6 +22,13 @@ function voteUpEvent(socket){
         socket.emit('voteUp',{feed: feedId});
     })
 }
+function voteDownEvent(socket){
+    "use strict";
+    $('.voteDown').click(function(){
+        var feedId = $(this).data('feed');
+        socket.emit('voteDown',{feed: feedId});
+    })
+}
 function receiveFeedCreated(socket){
     "use strict";
     socket.on('feedCreated', function(model){

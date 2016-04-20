@@ -31,6 +31,14 @@ const socketConfig = function(io, socket, userId){
             }
         });
     });
+    socket.on('voteDown', function(data){
+        findClientsSocket(io, socket.roomId);
+        feedController.setUp(data.feed, socket.userId, function(error, model){
+            if(!error){
+                io.in(socket.roomId).emit('setVoteUp', {feedId: model._id});
+            }
+        });
+    });
 };
 function findClientsSocket(io,roomId, namespace) {
     var res = [],

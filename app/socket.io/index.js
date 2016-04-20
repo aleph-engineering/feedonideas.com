@@ -12,25 +12,22 @@ const socketConfig = function(io, socket, userId){
         var room = findClientsSocket(io,data.roomId);
         if(room.length < 100){
             socket.join(data.roomId);
+            socket.roomId = data.roomId;
         }
     });
     socket.on('createFeed', function(data){
-        var room = findClientsSocket(io, data.roomId);
-        feedController.saveNewFeedWithRoomId(data.roomId, socket.userId, data.feedBody, function(error, model){
+        findClientsSocket(io, socket.roomId);
+        feedController.saveNewFeedWithRoomId(socket.roomId, socket.userId, data.feedBody, function(error, model){
             console.log("ERROR: " + error);
             io.in(data.roomId).emit('feedCreated', {feed: model});
         })
     });
-    socket.on('enter-topic', function(data){
-        var room = findClientsSocket(io, data.id);
-        socket.userId = userController.getUserById(user)
-    });
 
     socket.on('voteUp', function(data){
-        var room = findClientsSocket(io, data.id);
-        feedController.setUp(data.feed, userId, function(error, model){
+        findClientsSocket(io, socket.roomId);
+        feedController.setUp(data.feed, socket.userId, function(error, model){
             if(!error){
-                io.in(data.id).emit('setVoteUp', {feedId: model._id});
+                io.in(socket.roomId).emit('setVoteUp', {feedId: model._id});
             }
         });
     });

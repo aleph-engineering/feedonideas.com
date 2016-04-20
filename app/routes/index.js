@@ -91,6 +91,7 @@ var routeConfig = function(app, io){
         })
     });
     var socketConfig = io.on('connection', function (socket) {
+        socket.userId = userSession.user;
         require('../socket.io')(io,socket);
     });
 };

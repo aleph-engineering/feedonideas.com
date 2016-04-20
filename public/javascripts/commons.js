@@ -1,9 +1,12 @@
 $(function(){
     "use strict";
     activateModals();
+    activateNavbarCollapse();
 });
 
 function activateModals(){
-    "use strict";
     $('.modal-trigger').leanModal();
+}
+function activateNavbarCollapse(){
+    $(".button-collapse").sideNav();
 }

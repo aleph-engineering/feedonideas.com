@@ -24,10 +24,20 @@ main, footer {
         width: 80%;
     }
 }
-.modal{
+.modal > .modal-content > h5,
+.modal > .modal-content > h4,
+.modal > .modal-content > h3{
+    margin-bottom: 1em;
+}
+.modal#createTopic{
     height: 55%!important;
 }
-
+.modal#createFeed{
+    height: 30%;
+}
+.modal textarea.materialize-textarea{
+    padding-bottom: 0!important;
+}
 /*Modal*/
 .input-field input.invalid+label:after,
 .input-field textarea.invalid+label:after{

@@ -1,7 +1,7 @@
 //noinspection JSLint,JSHint
 var express = require('express'),
     path = require('path'),
-    favicon = require('serve-favicon'),
+    //favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
@@ -33,7 +33,7 @@ app.use(compression());
  * @type {connections|exports|module.exports}
  */
 var local_db = require('./app/configurations');
-mongoose.connect(process.env.MONGOLAB_URI || local_db.DEVELOPMENT_URL);
+mongoose.connect(process.env.MONGODB_URI || local_db.DEVELOPMENT_URL);
 
 /**
  * Configurations for sessions

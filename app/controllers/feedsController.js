@@ -54,13 +54,12 @@ var feedController = {
     },
     setDown(feedId, userId, callback) {
         if (typeof callback === "function") {
-            var feedModel = feed.findOne(feedId, function (error, model) {
-                if(!error) return model;
+            feed.findById(feedId, function(error, model){
+                if(!error){
+                    model.downs.push(userId);
+                    model.save(callback(error, model));
+                }
             });
-            feedModel.downs.push(userId);
-            feedModel.save(function (error, model) {
-                callback(error, model);
-            })
         }
     },
     getUps(feedId, userId, callback){

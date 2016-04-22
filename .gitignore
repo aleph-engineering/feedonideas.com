@@ -95,3 +95,5 @@ crashlytics-build.properties
 .sass-cache/
 *.css.map
 
+##My ignored files
+*.ign.*

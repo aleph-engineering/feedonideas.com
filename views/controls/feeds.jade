@@ -17,45 +17,32 @@ block center_content
                         div(class='chip')
                             i(class='material-icons left') star_outline
                             label(class='left downs-counter') #{item.downs.length}
-                        div(class='secondary-content')
-                            a(href='#' class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed=item._id)
+                        div(class='secondary-content votes-actions')
+                            a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed=item._id.toString())
                                 i(class='material-icons') star
-                            a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed=item._id)
+                            a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed=item._id.toString())
                                 i(class='material-icons') star_outline
         else
             div(class="card-panel grey lighten-3 no-feeds")
                 span(class="grey-text text-darken-3") #{room} This topic still doesn't have any feed, please be the first sharing your idea.
-            //li(class='collection-item avatar')
-            //    img(class='circle' src='/images/refucktor.jpg')
-            //    span(class='title')
-            //    p(class='feed-text') Did you know how amazing and powerful is NodeJs, we are unstopable, Just try it! aasdas asd asd asd aq weqgsfgedgf asrtghm slkdjf asduoahfmsdgfkui afsdas dasdasdhgiuj nsadf aqdfasdasdojk
-            //    div(class='chip')
-            //        i(class='material-icons left') start
-            //        label(class='left') 108
-            //    div(class='chip')
-            //        i(class='material-icons left') star_outline
-            //        label(class='left') 45
-            //    div(class='secondary-content')
-            //        a(href='#' class='waves-effect waves-circle waves-light btn-floating')
-            //            i(class='material-icons') star
-            //        a(href='#' class='waves-effect waves-circle waves-light btn-floating grey')
-            //            i(class='material-icons') star_outline
-            //li(class='collection-item avatar')
-            //    img(class='circle' src='/images/refucktor.jpg')
-            //    span(class='title')
-            //    p(class='feed-text') Did you know how amazing and powerful is NodeJs, we are unstopable, Just try it! aasdas asd asd asd aq weqgsfgedgf asrtghm slkdjf asduoahfmsdgfkui afsdas dasdasdhgiuj nsadf aqdfasdasdojk
-            //    div(class='chip')
-            //        i(class='material-icons left') start
-            //        label(class='left') 108
-            //    div(class='chip')
-            //        i(class='material-icons left') star_outline
-            //        label(class='left') 45
-            //    div(class='secondary-content')
-            //        a(href='#' class='waves-effect waves-circle waves-light btn-floating')
-            //            i(class='material-icons') star
-            //        a(href='#' class='waves-effect waves-circle waves-light btn-floating grey')
-            //            i(class='material-icons') star_outline
-        form(class='modal modal-fixed-footer' id='createFeed' method='post' data-room=room)
+
+        li(class='collection-item avatar hide feed-item')
+            img(class='circle' src='/images/refucktor.jpg')
+            span(class='title')
+            p(class='feed-text')
+            div(class='chip')
+                i(class='material-icons left') start
+                label(class='left ups-counter')
+            div(class='chip')
+                i(class='material-icons left') star_outline
+                label(class='left downs-counter')
+            div(class='secondary-content votes-actions')
+                a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed="")
+                    i(class='material-icons') star
+                a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed="")
+                    i(class='material-icons') star_outline
+
+        form(class='modal modal-fixed-footer' id='createFeed' method='post')
             div(class='modal-content')
                 h5(class='cyan-text text-darken-4') Create new feed
                 div(class="row")

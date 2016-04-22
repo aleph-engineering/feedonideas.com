@@ -1,44 +1,36 @@
 $(function(){
     "use strict";
     var roomId = $('.feed-page').data('room');
-    console.log("ROOM ID: " + roomId);
     var socket = io();
 
-    startConnection(socket, roomId);
-    createFeedEvent(socket);
-    receiveFeedCreated(socket);
-
-});
-function startConnection(socket, roomId){
-    "use strict";
     socket.on('connect', function(){
         socket.emit('enterFeedsRoom', {roomId: roomId})
     });
-}
-function voteUpEvent(socket){
+    createFeedEvent(socket);
+    voteUpEventHandler(socket);
+    voteDownEventHandler(socket);
+
+    receiveFeedCreated(socket);
+    receiveVoteUp(socket);
+    receiveVoteDown(socket);
+});
+
+/***** Emitter events for socket.io *****/
+function voteUpEventHandler(socket){
     "use strict";
     $('.voteUp').click(function(){
         var feedId = $(this).data('feed');
         socket.emit('voteUp',{feed: feedId});
     })
 }
-function voteDownEvent(socket){
+function voteDownEventHandler(socket){
     "use strict";
     $('.voteDown').click(function(){
         var feedId = $(this).data('feed');
         socket.emit('voteDown',{feed: feedId});
     })
 }
-function receiveFeedCreated(socket){
-    "use strict";
-    socket.on('feedCreated', function(model){
-        console.log(model.feed);
-        var feed = model.feed;
-        console.log(feed);
-        console.log(feed.body);
-        drawNewFeed(feed.body, feed.ups.length, feed.downs.length);
-    });
-}
+
 function createFeedEvent(socket){
     "use strict";
     var feedForm = $('#createFeed');
@@ -49,6 +41,31 @@ function createFeedEvent(socket){
     });
 }
 
+
+/***** Receiver events for socket.io *****/
+function receiveVoteDown(socket){
+    "use strict";
+    socket.on('getVoteDowns', function(data){
+        updateVoteDown(data.feedId, data.downs);
+    });
+}
+function receiveVoteUp(socket){
+    "use strict";
+    socket.on('getVoteUps', function(data){
+        updateVoteUp(data.feedId, data.ups);
+    })
+}
+function receiveFeedCreated(socket){
+    "use strict";
+    socket.on('feedCreated', function(data){
+        console.log("RECEIVED FEED");
+        var feed = data.feed;
+        drawNewFeed(feed._id, feed.body, socket);
+    });
+}
+
+
+/***** Update visual element in the DOM *****/
 function enableNoFeeds(enabled) {
     var noFeeds = $('.no-feeds');
     if(!enabled){
@@ -57,10 +74,31 @@ function enableNoFeeds(enabled) {
     }
     noFeeds.removeClass('hide');
 }
-function drawNewFeed(body, ups, downs){
+function drawNewFeed(feedId, body, socket){
+    "use strict";
+    console.log("DRAWING");
+    console.log("FEED ID: " + feedId);
+    console.log("FEED BODY: " + body);
+    var feedItem = $('.feed-item').clone();
+    $(feedItem).attr('id', feedId);
+    $(feedItem).children('.feed-text').text(body);
+    $(feedItem).children('.chip').children('.ups-counter').text("0");
+    $(feedItem).children('.chip').children('.downs-counter').text("0");
+    $(feedItem).children('.secondary-content').children('a.voteUp').attr('data-feed', feedId.toString());
+    $(feedItem).children('.secondary-content').children('.voteDown').attr('data-feed', feedId.toString());
+    $(feedItem).children('.secondary-content').children('a.voteUp').click(function(){
+        socket.emit('voteUp',{feed: feedId});
+    });
+    $(feedItem).children('.secondary-content').children('a.voteDown').click(function(){
+        socket.emit('voteDown',{feed: feedId});
+    });
+    $(feedItem).removeClass('hide');
+    $('.feeds').prepend(feedItem);
+}
+/*function drawNewFeed(feedId, body, ups, downs){
     "use strict";
     enableNoFeeds(false);
-    var html = "<li class='collection-item avatar'>" +
+    var html = "<li class='collection-item avatar' id='" + feedId + "'>" +
         "<img class='circle' src='/images/refucktor.jpg'>" +
         "<span class='title'></span>" +
         "<p class='feed-text'>"+ body + "</p>" +
@@ -73,9 +111,19 @@ function drawNewFeed(body, ups, downs){
             "<label class='left downs'>" + downs + "</label>" +
         "</div>" +
         "<div class='secondary-content'>" +
-            "<a href='#' class='waves-effect waves-circle waves-light btn-floating setUp'><i class='material-icons'>star</i></a>" +
-            "<a href='#' class='waves-effect waves-circle waves-light btn-floating grey setDown'><i class='material-icons'>star_outline</i></a>" +
+            "<a href='#' class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed='"+ feedId +"'><i class='material-icons'>star</i></a>" +
+            "<a href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed='"+ feedId +"'><i class='material-icons'>star_outline</i></a>" +
         "</div>" +
         "</li>";
     $('.feeds').prepend(html);
+}*/
+function updateVoteUp(feedId, ups){
+    "use strict";
+    var selector = "#" + feedId + " .ups-counter";
+    $(selector).text(ups);
+}
+function updateVoteDown(feedId, downs){
+    "use strict";
+    var selector = "#" + feedId + " .downs-counter";
+    $(selector).text(downs);
 }

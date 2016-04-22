@@ -6,7 +6,6 @@ var userController = controllers.userController,
     topicController= controllers.topicController,
     feedController = controllers.feedController,
     userSession = {}, roomIdent="";
-var testRoutes = require('./test');
 
 var routeConfig = function(app, io){
     /**

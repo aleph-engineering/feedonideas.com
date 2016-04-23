@@ -13,6 +13,7 @@ const githubConfig = function(app){
         callbackURL: "/auth/github/callback"
     },
         function(accessToken, refreshToken, profile, done) {
+            console.log(profile);
             userProfile.findOne({'gitHubUser.id': profile._json.id})
                 .then(function(user){
                     if(user) return done(null, user);
@@ -22,7 +23,7 @@ const githubConfig = function(app){
                             name: profile._json.name,
                             username: profile._json.login,
                             email: profile._json.email,
-                            avatar: profile._json.avatar_url,
+                            avatarUrl: profile._json.avatar_url,
                             profileUrl: profile._json.html_url,
                             company: profile._json.company,
                             gender: profile._json.gender,
@@ -33,6 +34,7 @@ const githubConfig = function(app){
                             if(error) return done(null, null);
                             if(model){
                                 model.gitHubUser = newGitHubUser;
+                                model.loginAvatarUrl = newGitHubUser.avatarUrl;
                                 model.save(function(error){
                                     if(!error) return done(null, user);
                                     else{
@@ -42,7 +44,8 @@ const githubConfig = function(app){
                             }
                             else{
                                 var newProfile = new userProfile({
-                                    name : profile._json.displayName
+                                    name : newGitHubUser.name,
+                                    loginAvatarUrl: newGitHubUser.avatarUrl
                                 });
                                 newProfile.gitHubUser = newGitHubUser;
                                 newProfile.save(function(err){
@@ -60,7 +63,7 @@ const githubConfig = function(app){
 
     app.get('/auth/github', passport.authenticate('github'));
 
-    app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
+    app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/home' }),
         function(req, res) {
             res.redirect('/');
         });

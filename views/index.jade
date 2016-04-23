@@ -1,9 +1,10 @@
 extends layout
 
 block content
+    link(rel='stylesheet', href='/stylesheets/main.css')
+    -var avatar = avatarUrl
     header
         include controls/navbar
     main
         div(class='row')
             block center_content
-    script(src='/javascripts/commons.js')

@@ -1,17 +1,100 @@
 extends layout
 block content
-    div(class='navbar-fixed')
-        nav
-            div(class='nav-wrapper container transparent')
-                a(class='brand-logo' href='#')
-                    img(src='/images/lamp.png' class='image-responsive')
-                a(class="button-collapse hide-on-large-only" href="#" data-activates="sideNav")
-                    i(class="material-icons") menu
-                ul(class='right hide-on-small-only')
-                    li(class='bold')
-                        a(href='#') Sign in
-                    li
-                        a(href='#') About us
-                    li
-                        a(href='#')
-                            i(class='material-icons') chat
+    link(rel='stylesheet', href='/stylesheets/home.css')
+    main
+        div(class='parallax-container')
+            div(class='parallax-text valign-wrapper black-layer1 comf-font')
+                div(class='container')
+                    h1(class='valign') FeedOnIdeas
+                    h5(class='valign') Modern and fast platform to feed yourself with new ideas
+                    button(class='btn waves-effect waves-light marg-top4 cyan darken-3 z-depth-2' id='show-logins') Sign in
+                    div(class='login-buttons marg-top2 hide')
+                        a(class='btn-floating btn-large waves-effect waves-light blue darken-4 z-depth-2' href='/auth/facebook')
+                            i.fa.fa-facebook
+                        a(class='btn-floating btn-large waves-effect waves-light red darken-1 z-depth-2' href='/auth/google')
+                            i.fa.fa-google
+                        a(class='btn-floating btn-large waves-effect waves-light grey darken-4 z-depth-2' href='/auth/github')
+                            i.fa.fa-github
+                        a(class='btn-floating btn-large waves-effect waves-light light-blue darken-3 z-depth-2' href='/auth/linkedin')
+                            i.fa.fa-linkedin
+            div(class='parallax')
+                img(src='/images/kanban_banner.jpg')
+        div(class="container")
+            div(class='row section icons-block')
+                div(class='col s12 m4')
+                    div(class='block')
+                        h1(class='center')
+                            i(class='material-icons large cyan-text text-darken-4') lightbulb_outline
+                        h5(class='center cyan-text text-darken-4') Improve your projects
+                        p(class='center') You can create a topic for your own projects and receive wonderful feedback and new ideas to implement the featured that users want to have fro you.
+                div(class='col s12 m4')
+                    div(class='block')
+                        h1(class='center')
+                            i(class='material-icons large cyan-text text-darken-4') people
+                        h5(class='center cyan-text text-darken-4') Discussion in real time
+                        p(class='center') Be part of the fun checking in real time what users likes more. It's like brainstorm but in very nice web platform.
+                div(class='col s12 m4')
+                    div(class='block')
+                        h1(class='center')
+                            i(class='material-icons large cyan-text text-darken-4') trending_up
+                        h5(class='center cyan-text text-darken-4') Keep your stats
+                        p(class='center') Your can manage your projects stats to check tendencies and focus on what should be created or fixed first. Your dashboard can help you to show the impact of your application in the community.
+        div(class='parallax-container')
+            div(class='parallax')
+                div(class='parallax-text valign-wrapper black-layer3')
+                    div(class='container')
+                        h1(class='valign') Pick only the best
+                        h5(class='valign') We need to make a text for this
+                img(src='/images/one-idea_banner.png')
+        div(class='container')
+            div(class='row section portfolio-box')
+                div(class='col s12')
+                    h4(class='center cyan-text text-darken-4 pad-vert1 comf-font') Applications Associated
+                div(class='col s12 m4')
+                    div(class="card topic-card medium")
+                        div(class="card-image waves-effect waves-block waves-light")
+                            img(class='activator' src='/images/ce_avatar.png')
+                            span(class="card-title comf-font") Cuban.Engineer
+                        div(class="card-content grey")
+                            span(class="card-title activator grey-text text-darken-4")
+                                i(class="material-icons right") more_vert
+                            a(href="/feeds/" style='display: block' class='white-text') Check the feeds
+                        div(class="card-reveal")
+                            span(class="card-title grey-text text-darken-4") Cuban.Engineer
+                                i(class="material-icons right") close
+                            p Amazing platform to train and recruit the best and brights Cuban Engineers
+                div(class='col s12 m4')
+                    div(class="card topic-card medium")
+                        div(class="card-image waves-effect waves-block waves-light")
+                            img(class='activator' src='/images/foi_avatar.jpg')
+                            span(class="card-title comf-font") FeedOnIdeas
+                        div(class="card-content grey")
+                            span(class="card-title activator grey-text text-darken-4")
+                                i(class="material-icons right") more_vert
+                            a(href="/feeds/" style='display: block' class='white-text') Check the feeds
+                        div(class="card-reveal")
+                            span(class="card-title grey-text text-darken-4") FOI
+                                i(class="material-icons right") close
+                            p Amazing platform to train and recruit the best and brights Cuban Engineers
+    footer(class='page-footer cyan darken-4')
+        div(class='container')
+            div(class='row')
+                div(class='col s12 m12')
+                    h5(class='white-text comf-font pad-vert1 center') Keep int touch
+                    div(class='social-links center')
+                        a(class='btn-floating btn-large waves-effect waves-light transparent')
+                            i.fa.fa-facebook
+                        a(class='btn-floating btn-large waves-effect waves-light transparent')
+                            i.fa.fa-google
+                        a(class='btn-floating btn-large waves-effect waves-light transparent')
+                            i.fa.fa-github
+                        a(class='btn-floating btn-large waves-effect waves-light transparent')
+                            i.fa.fa-linkedin
+        div(class='footer-copyright')
+            div(class='container')
+                a(class='center-align grey-text text-lighten-4' href="#!") MIT License
+
+
+
+
+

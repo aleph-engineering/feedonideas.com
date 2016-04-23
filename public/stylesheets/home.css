@@ -1,6 +1,93 @@
 @font-face {
     font-family: Comfortaa;
     src: url("https://fonts.googleapis.com/css?family=Comfortaa"),
-    local("Comforta");
+    local("Comfortaa");
+}
+.comf-font:not(i){
+    font-family: Comfortaa!important;
+}
+.parallax-text{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    color: rgb(230, 230, 230);
+    text-align: center!important;
+}
+.black-layer1{
+    background-color: rgba(50,50,50,.7);
+}
+.black-layer2{
+    background-color: rgba(50,50,50,.6);
+}
+.black-layer3{
+    background-color: rgba(50,50,50,.5);
+}
+.parallax-text h1{
+    position: relative;
+    text-align: center;
+    font-family: Comfortaa, "Consolas", monospace;
+    font-size: 4rem;
+}
+.icons-block h5{
+    font-family: Comfortaa;
+}
+.portfolio-box img.materialboxed{
+    width: 100%;
+}
+.pad-vert1{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.pad-vert2{
+    padding-top: 1.25em;
+    padding-bottom: 1.25em;
+}
+.pad-vert3{
+    padding-top: 1.50em;
+    padding-bottom: 1.50em;
+}
+.pad-vert4{
+    padding-top: 1.75em;
+    padding-bottom: 1.75em;
+}
+.pad-vert5{
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.marg-top1{
+    margin-top: .85em;
+}
+.marg-top2{
+    margin-top: 1em;
+}
+.marg-top3{
+    margin-top: 1.50em;
+}
+.marg-top4{
+    margin-top: 2em;
+}
+.topic-card .card-image{
+    max-height: 85%!important;
+    height: 85%;
+}
+.topic-card .card-image img{
+    height: 100%;
+}
+.topic-card .card-content{
+    height: 15%!important;
+}
+.topic-card .card-image > .card-title{
+    width: 100%;
+    background-color: rgba(0,0,0,.8);
+    padding: 10px 20px;
+}
+.page-footer a.btn-floating,
+.login-buttons a.btn-floating{
+    margin-right: 1em;
+}
+.footer-copyright *{
+    text-align: center!important;
 }
 

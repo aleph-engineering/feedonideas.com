@@ -1,12 +1,17 @@
 $(function(){
     "use strict";
-    activateModals();
-    activateNavbarCollapse();
+    commonsMaterializaActivations();
+    customActivations();
 });
-
-function activateModals(){
-    $('.modal-trigger').leanModal();
+function commonsMaterializaActivations(){
+    "use strict";
+    $(".button-collapse").sideNav(); //button to show sidenav
+    $('.modal-trigger').leanModal(); //trigger to activate modal
+    $('.parallax').parallax();       //activate parallax
 }
-function activateNavbarCollapse(){
-    $(".button-collapse").sideNav();
+function customActivations(){
+    "use strict";
+    $('#show-logins').click(function(){
+        $('.login-buttons').removeClass('hide').addClass('animated zoomIn');
+    })
 }

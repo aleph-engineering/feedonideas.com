@@ -12,27 +12,33 @@ const linkedinConfig = function(app){
             clientSecret: (process.env.LINKEDIN_SECRET_KEY || '123'),
             callbackURL: "http://localhost:3001/auth/linkedin/callback",
             scope: ['r_emailaddress', 'r_basicprofile'],
-            state: true,
-            passReqToCallback: true
+            state: true
         },
         function(accessToken, refreshToken, profile, done) {
             console.log("FUCK YOU");
             console.log(profile);
-            req.session.accessToken = accessToken;
             userProfile.findOne({ 'linkedInUser.id': profile._json.id })
                 .then(function(user){
                     if(user) return done(null, user);
                     else {
                         var newLinkedInUser = new linkedInUser({
                             id : profile._json.id,
-                            name : profile._json.name,
-                            email: profile._json.email
+                            name : profile._json.firstName,
+                            email: profile._json.emailAddress,
+                            avatarUrl: profile._json.pictureUrl,
+                            headline: profile._json.headline,
+                            industry: profile._json.industry,
+                            country: profile._json.location.name,
+                            profileUrl: profile._json.publicProfileUrl,
+                            positions: profile._json.positions,
+                            summary: profile._json.summary
                         });
 
                         userController.checkProfileExist(profile._json.email,function(error,model){
                             if(error) { return done(null, null) }
                             if(model){
                                 model.linkedInUser = newLinkedInUser;
+                                model.loginAvatarUrl = newLinkedInUser.avatarUrl;
                                 model.save(function(err){
                                     if(!err) return done(null, model);
                                     else{
@@ -41,7 +47,8 @@ const linkedinConfig = function(app){
                             }
                             else{
                                 var newProfile = new userProfile({
-                                    //name : profile._json.displayName
+                                    name : newLinkedInUser.name,
+                                    loginAvatarUrl: newLinkedInUser.avatarUrl
                                 });
                                 newProfile.linkedInUser = newLinkedInUser;
                                 newProfile.save(function(err){
@@ -55,12 +62,9 @@ const linkedinConfig = function(app){
                 });
         }
     ));
-    app.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'login_state'}));
+    app.get('/auth/linkedin', passport.authenticate('linkedin'), function(req, res){});
 
-    app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
-            successRedirect: '/',
-            failureRedirect: '/login'
-        }),
+    app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/home'}),
         function(req, res) {
             res.redirect('/');
         });

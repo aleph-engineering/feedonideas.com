@@ -16,8 +16,7 @@ var routeConfig = function(app, io){
             userSession = req.session.passport;
             next();
         } else {
-            req.session.error = 'Access denied!';
-            res.render('login');
+            res.render('home');
         }
     });
     app.get('/test/getMaxUps', function(req, res, next){
@@ -28,8 +27,18 @@ var routeConfig = function(app, io){
             res.redirect('/');
         });
     });
+
+    app.get('/home', function(req, res, next){
+        res.render('home');
+    });
+
     app.get('/', function(req, res, next) {
-        res.render('index', { title: 'Express', profile: {}});
+        var profile = userController.getUserById(userSession.user, function(error, model){
+            if(!error){
+                res.render('index', { title: 'Express', avatarUrl: model.loginAvatarUrl});
+            }
+        });
+
     });
     app.get('/create', function(req,res){
 
@@ -41,31 +50,18 @@ var routeConfig = function(app, io){
         res.redirect('/topic/'+id);
     });
 
-    app.get('/topic/:id', function(req,res){
-        console.log(req.session.passport);
-        // Render the chant.html view
-        res.render('controls/topic');
-    });
-
     app.get('/mytopics', function(req, res, next){
         var topics = topicController.getUserTopics(userSession.user, function(error, model){
             console.log(model);
             res.render('controls/mytopics', {topics: model});
         });
     });
-    app.get('/feeds/:roomId', function(req, res, next){
-        var roomId = req.params.roomId;
-        console.log("ROOM ID: " + roomId);
-        topicController.getTopicByRoomId(roomId, function(error, model){
-            if(!error){
-                feedController.getFeedsByTopic(model, function(error, model){
-                    res.render('controls/feeds', {feeds: model, roomId: roomId});
-                    return;
-                });
-            }
-        });
-    });
 
+    app.get('/topic/:id', function(req,res){
+        console.log(req.session.passport);
+        // Render the chant.html view
+        res.render('controls/topic');
+    });
     app.post('/topics/create', function(req, res, next){
         const name = req.body.topicName,
             pictureUrl = req.body.pictureUrl,
@@ -80,6 +76,20 @@ var routeConfig = function(app, io){
             res.redirect('http://localhost:3001/mytopics');
         })
     });
+
+
+    app.get('/feeds/:roomId', function(req, res, next){
+        var roomId = req.params.roomId;
+        console.log("ROOM ID: " + roomId);
+        topicController.getTopicByRoomId(roomId, function(error, model){
+            if(!error){
+                feedController.getFeedsByTopic(model, function(error, model){
+                    res.render('controls/feeds', {feeds: model, roomId: roomId});
+                    return;
+                });
+            }
+        });
+    });
     app.post('/feeds/create/:roomId', function(req, res, next){
         const body = req.body.feedBody,
             roomId = req.params.roomId;
@@ -89,6 +99,7 @@ var routeConfig = function(app, io){
             res.render('controls/feeds', {});
         })
     });
+
     var socketConfig = io.on('connection', function (socket) {
         socket.userId = userSession.user;
         require('../socket.io')(io,socket);

@@ -10,7 +10,7 @@ const linkedinConfig = function(app){
     passport.use(new linkedinStrategy({
             clientID: ( process.env.LINKEDIN_API_KEY || '123'),
             clientSecret: (process.env.LINKEDIN_SECRET_KEY || '123'),
-            callbackURL: "http://localhost:3001/auth/linkedin/callback",
+            callbackURL: "/auth/linkedin/callback",
             scope: ['r_emailaddress', 'r_basicprofile'],
             state: true
         },

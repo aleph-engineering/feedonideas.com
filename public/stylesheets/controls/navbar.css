@@ -8,7 +8,8 @@
     background-color: #004e51;
 }
 .nav-wrapper li.avatar img.responsive-img{
-    /*box-shadow: ;*/
+    width: 150px;
+    height: 150px;
 }
 li.avatar .profiles-link i:not(:last-child){
     margin-right: .2em;

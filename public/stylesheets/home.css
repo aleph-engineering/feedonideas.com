@@ -1,8 +1,5 @@
-@font-face {
-    font-family: Comfortaa;
-    src: url("https://fonts.googleapis.com/css?family=Comfortaa"),
-    local("Comfortaa");
-}
+@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+
 .comf-font:not(i){
     font-family: Comfortaa!important;
 }

@@ -73,7 +73,7 @@ var routeConfig = function(app, io){
         console.log('Name: '+ topicDesc);
         topicController.saveNewTopic(name,userSession.user,pictureUrl,siteUrl,topicDesc, function(error,model){
             if(error) console.log(error);
-            res.redirect('http://localhost:3001/mytopics');
+            res.redirect('/mytopics');
         })
     });
 

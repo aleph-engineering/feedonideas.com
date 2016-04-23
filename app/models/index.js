@@ -13,8 +13,9 @@ const GoogleUserSchema = new Schema({
     id          : { type: String },
     name        : { type: String },
     email       : { type: String },
-    avatar      : { type: String },
+    avatarUrl   : { type: String },
     gender      : { type: String },
+    profileUrl  : { type: String },
     birthday    : { type: String }
 });
 
@@ -22,23 +23,32 @@ const FacebookUserSchema = new Schema({
     id          : { type: String },
     name        : { type: String },
     email       : { type: String },
-    avatar      : { type: String },
+    avatarUrl   : { type: String },
+    profileUrl  : { type: String },
     gender      : { type: String }
 });
 
 const LinkedInUserSchema = new Schema({
     id          : { type: String},
     name        : { type: String },
-    email       : { type: String }
+    email       : { type: String },
+    avatarUrl   : { type: String },
+    headline    : { type: String },
+    industry    : { type: String },
+    country     : { type: String },
+    profileUrl  : { type: String },
+    summary     : { type: String },
+    positions   : { type: Object }
 });
 const GitHubUserSchema = new Schema({
     id          : { type: String},
     name        : { type: String},
     username    : { type: String},
-    email       : { type: String },
-    avatar      : { type: String},
+    email       : { type: String},
+    avatarUrl   : { type: String},
     profileUrl  : { type: String},
     company     : { type: String},
+    publicRepos : { type: Number},
     gender      : { type: String},
     location    : { type: String}
 
@@ -64,6 +74,7 @@ const UserProfileSchema = new Schema({
     availableVotes  : { type: Number},
     name            : { type: String },
     email           : { type: String },
+    loginAvatarUrl  : { type: String },
     reg_date        : { type: Date, default: new Date()},
     googleUser      : GoogleUserSchema,
     facebookUser    : FacebookUserSchema,

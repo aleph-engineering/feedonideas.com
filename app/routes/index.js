@@ -33,12 +33,7 @@ var routeConfig = function(app, io){
     });
 
     app.get('/', function(req, res, next) {
-        var profile = userController.getUserById(userSession.user, function(error, model){
-            if(!error){
-                res.render('index', { title: 'Express', avatarUrl: model.loginAvatarUrl});
-            }
-        });
-
+        res.render('index', { title: 'Profile', userProfile: req.user});
     });
     app.get('/create', function(req,res){
 
@@ -53,7 +48,7 @@ var routeConfig = function(app, io){
     app.get('/mytopics', function(req, res, next){
         var topics = topicController.getUserTopics(userSession.user, function(error, model){
             console.log(model);
-            res.render('controls/mytopics', {topics: model});
+            res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
         });
     });
 

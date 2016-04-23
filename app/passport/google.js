@@ -24,7 +24,8 @@ const googleConfig = function(app){
                         var newGoogleUser = new googleUser({
                             id : profile._json.id,
                             email : profile.email,
-                            avatar : profile._json.image.url,
+                            name : profile.displayName,
+                            avatarUrl : profile._json.image.url.replace("sz=50", "sz=200"),
                             gender : profile._json.gender,
                             birthday : profile._json.birthday
                         });
@@ -33,6 +34,7 @@ const googleConfig = function(app){
                             if(error) { return done(null, null) }
                             if(model){
                                 model.googleUser = newGoogleUser;
+                                model.loginAvatarUrl = newGoogleUser.avatarUrl;
                                 model.save(function(err){
                                     if(!err) return done(null, model);
                                     else{
@@ -41,7 +43,8 @@ const googleConfig = function(app){
                             }
                             else{
                                 var newProfile = new userProfile({
-                                    name : profile._json.displayName
+                                    name : newGoogleUser.name,
+                                    loginAvatarUrl: newGoogleUser.avatarUrl
                                 });
                                 newProfile.googleUser = newGoogleUser;
                                 newProfile.save(function(err){

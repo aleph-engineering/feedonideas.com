@@ -35,10 +35,10 @@ const googleConfig = function(app){
                             if(model){
                                 model.googleUser = newGoogleUser;
                                 model.loginAvatarUrl = newGoogleUser.avatarUrl;
-                                model.save(function(err){
+                                model.save(function(err, model){
                                     if(!err) return done(null, model);
                                     else{
-                                        console.log(err);}
+                                        console.log("SAVING ERROR: " + err);}
                                 });
                             }
                             else{
@@ -47,10 +47,10 @@ const googleConfig = function(app){
                                     loginAvatarUrl: newGoogleUser.avatarUrl
                                 });
                                 newProfile.googleUser = newGoogleUser;
-                                newProfile.save(function(err){
-                                    if (!err) return done(null, newProfile);
+                                newProfile.save(function(err, model){
+                                    if (!err) return done(null, model);
                                     else {
-                                        console.log(err);}
+                                        console.log("SAVING ERROR: " + err);}
                                 });
                             }
                         });

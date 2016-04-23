@@ -33,10 +33,10 @@ const facebookConfig = function(app){
                             if(model){
                                 model.facebookUser = newFacebookUser;
                                 model.loginAvatarUrl= profile._json.picture.data.url;
-                                model.save(function(err){
+                                model.save(function(err, model){
                                     if(!err) return done(null, model);
                                     else{
-                                        console.log(err);}
+                                        console.log("SAVING ERROR: "+ err);}
                                 });
                             }
                             else{
@@ -45,10 +45,10 @@ const facebookConfig = function(app){
                                     loginAvatarUrl: profile._json.picture.data.url
                                 });
                                 newProfile.facebookUser = newFacebookUser;
-                                newProfile.save(function(err){
+                                newProfile.save(function(err, model){
                                     if (!err) return done(null, newProfile);
                                     else {
-                                        console.log("ERROR: " + err);}
+                                        console.log("SAVING ERROR: " + err);}
                                 });
                             }
                         });

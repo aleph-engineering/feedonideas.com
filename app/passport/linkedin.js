@@ -39,10 +39,10 @@ const linkedinConfig = function(app){
                             if(model){
                                 model.linkedInUser = newLinkedInUser;
                                 model.loginAvatarUrl = newLinkedInUser.avatarUrl;
-                                model.save(function(err){
+                                model.save(function(err, model){
                                     if(!err) return done(null, model);
                                     else{
-                                        console.log(err);}
+                                        console.log("SAVING ERROR: " + err);}
                                 });
                             }
                             else{
@@ -51,10 +51,10 @@ const linkedinConfig = function(app){
                                     loginAvatarUrl: newLinkedInUser.avatarUrl
                                 });
                                 newProfile.linkedInUser = newLinkedInUser;
-                                newProfile.save(function(err){
-                                    if (!err) return done(null, newProfile);
+                                newProfile.save(function(err, model){
+                                    if (!err) return done(null, model);
                                     else {
-                                        console.log("ERROR: " + err);}
+                                        console.log("SAVING ERROR: " + err);}
                                 });
                             }
                         });

@@ -35,10 +35,10 @@ const githubConfig = function(app){
                             if(model){
                                 model.gitHubUser = newGitHubUser;
                                 model.loginAvatarUrl = newGitHubUser.avatarUrl;
-                                model.save(function(error){
-                                    if(!error) return done(null, user);
+                                model.save(function(error, model){
+                                    if(!error) return done(null, model);
                                     else{
-                                        console.log(error);
+                                        console.log("SAVING ERROR: " + error);
                                     }
                                 })
                             }
@@ -48,8 +48,8 @@ const githubConfig = function(app){
                                     loginAvatarUrl: newGitHubUser.avatarUrl
                                 });
                                 newProfile.gitHubUser = newGitHubUser;
-                                newProfile.save(function(err){
-                                    if (!err) return done(null, newProfile);
+                                newProfile.save(function(err, model){
+                                    if (!err) return done(null, model);
                                     else {
                                         console.log("ERROR: " + err);}
                                 });

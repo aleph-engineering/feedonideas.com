@@ -1,7 +1,8 @@
 'use strict';
 const controllers = require('../controllers'),
     models = require('../models'),
-    uuid = require('uuid');
+    uuid = require('uuid'),
+    macAd = require('getmac');
 
 var userController = controllers.userController,
     topicController= controllers.topicController,
@@ -111,6 +112,13 @@ var routeConfig = function(app, io){
         })
     });
 
+    app.get('/toNeutrino', function(req, res, next) {
+        var mac = macAd.getMac(function (err, macAddress) {
+            if (err)  throw err;
+            console.log(macAddress);
+            res.render('controls/home', {macAdd: macAddress});
+        });
+    });
     var socketConfig = io.on('connection', function (socket) {
         socket.userId = userSession.user;
         require('../socket.io')(io,socket);

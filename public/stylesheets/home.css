@@ -17,6 +17,9 @@
 .black-layer3{
     background-color: rgba(50,50,50,.5);
 }
+.black-layer4{
+    background-color: rgba(50,50,50,.25);
+}
 .parallax-text h1{
     position: relative;
     text-align: center;

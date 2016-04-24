@@ -1,12 +1,12 @@
-extends ../index
+extends ../profile
 block main
     - var model = feeds
     - var room = roomId
     link(rel='stylesheet' href='/stylesheets/controls/feeds.css')
     div(class='row')
         div(class='col l8 m8 s10 feed-page' data-room=room)
-            if model.length > 0
-                ul(class='collection feeds')
+            ul(class='collection feeds')
+                if model.length > 0
                     each item in model
                         li(class='collection-item avatar' id=item._id)
                             img(class='circle' src='/images/refucktor.jpg')
@@ -23,10 +23,9 @@ block main
                                     i(class='material-icons') star
                                 a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed=item._id.toString())
                                     i(class='material-icons') star_outline
-            else
-                div(class="card-panel grey lighten-3 no-feeds")
-                    span(class="grey-text text-darken-3") This topic still doesn't have any feed, please be the first sharing your idea.
-
+                else
+                    li(class='card-panel grey lighten-3 no-feeds')
+                        span(class="grey-text text-darken-3") This topic still doesn't have any feed, please be the first sharing your idea.
             li(class='collection-item avatar hide feed-item')
                 img(class='circle' src='/images/refucktor.jpg')
                 span(class='title')
@@ -52,7 +51,7 @@ block main
                             textarea(class='materialize-textarea' name='feedText' id='feedText')
                             label(for='feedText' data-error="Please type a correct url address" id='feedBodyText') Your idea
                 div(class="modal-footer")
-                    button(class="modal-action waves-effect waves-light btn-flat cyan darken-4 white-text modal-close" type='submit') Done
+                    button(class="modal-action waves-effect waves-light btn-flat cyan darken-4 white-text modal-close" type='reset') Done
     div(class="fixed-action-btn" style="bottom: 45px; right: 24px")
         a(class="btn-floating btn-large cyan darken-4 modal-trigger" href="#createFeed" data-target='createFeed')
             i(class="large material-icons") mode_edit

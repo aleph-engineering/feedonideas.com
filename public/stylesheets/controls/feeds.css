@@ -1,3 +1,6 @@
+.collection.feeds{
+    border: none;
+}
 .feeds .feed-text{
     max-width: 90%;
     font-size: .85rem!important;

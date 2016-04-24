@@ -84,7 +84,7 @@ main, footer {
 }
 .topic-card .description{
     max-height: 70%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /******BUTTONS******/

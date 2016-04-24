@@ -1,5 +1,5 @@
+'use strict';
 $(function(){
-    "use strict";
     var roomId = $('.feed-page').data('room');
     var socket = io();
 
@@ -17,14 +17,12 @@ $(function(){
 
 /***** Emitter events for socket.io *****/
 function voteUpEventHandler(socket){
-    "use strict";
     $('.voteUp').click(function(){
         var feedId = $(this).data('feed');
         socket.emit('voteUp',{feed: feedId});
     })
 }
 function voteDownEventHandler(socket){
-    "use strict";
     $('.voteDown').click(function(){
         var feedId = $(this).data('feed');
         socket.emit('voteDown',{feed: feedId});
@@ -32,10 +30,8 @@ function voteDownEventHandler(socket){
 }
 
 function createFeedEvent(socket){
-    "use strict";
     var feedForm = $('#createFeed');
-    feedForm.on('submit', function(e){
-        e.preventDefault();
+    feedForm.on('reset', function(e){
         var feedText = $('#feedText').val();
         socket.emit('createFeed', { feedBody: feedText})
     });
@@ -44,19 +40,16 @@ function createFeedEvent(socket){
 
 /***** Receiver events for socket.io *****/
 function receiveVoteDown(socket){
-    "use strict";
     socket.on('getVoteDowns', function(data){
         updateVoteDown(data.feedId, data.downs);
     });
 }
 function receiveVoteUp(socket){
-    "use strict";
     socket.on('getVoteUps', function(data){
         updateVoteUp(data.feedId, data.ups);
     })
 }
 function receiveFeedCreated(socket){
-    "use strict";
     socket.on('feedCreated', function(data){
         console.log("RECEIVED FEED");
         var feed = data.feed;
@@ -75,10 +68,6 @@ function enableNoFeeds(enabled) {
     noFeeds.removeClass('hide');
 }
 function drawNewFeed(feedId, body, socket){
-    "use strict";
-    console.log("DRAWING");
-    console.log("FEED ID: " + feedId);
-    console.log("FEED BODY: " + body);
     var feedItem = $('.feed-item').clone();
     $(feedItem).attr('id', feedId);
     $(feedItem).children('.feed-text').text(body);

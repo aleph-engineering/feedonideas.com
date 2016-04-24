@@ -1,3 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+
+.comf-font:not(i){
+    font-family: Comfortaa!important;
+}
 main, footer {
     padding-left: 240px;
 }
@@ -24,6 +29,8 @@ main, footer {
         width: 80%;
     }
 }
+
+/*Modal*/
 .modal > .modal-content > h5,
 .modal > .modal-content > h4,
 .modal > .modal-content > h3{
@@ -38,12 +45,46 @@ main, footer {
 .modal textarea.materialize-textarea{
     padding-bottom: 0!important;
 }
-/*Modal*/
 .input-field input.invalid+label:after,
 .input-field textarea.invalid+label:after{
     min-width: 200px;
     margin-bottom: .5em;
 }
+/*Forms*/
+.input-field .form-select,
+.input-field .file-path-wrapper,
+.input-field .file-path-wrapper label{
+    width: calc(100% - 3rem)!important;
+    margin-left: 3rem!important;
+    padding-left: 0!important;
+}
 .material-icons.prefix{
-    top: .35em!important;
+    top: .65em!important;
+    font-size: 1.6rem;
+}
+
+/*****CARDS*****/
+.topic-card .card-image{
+    max-height: 85%!important;
+    height: 85%;
+}
+.topic-card .card-image img{
+    height: 100%;
+}
+.topic-card .card-content{
+    height: 15%!important;
+}
+.topic-card .card-image > .card-title{
+    width: 100%;
+    background-color: rgba(0,0,0,.8);
+    padding: 10px 20px;
+}
+.topic-card .description{
+    max-height: 70%;
+    overflow-y: scroll;
+}
+
+/******BUTTONS******/
+.btn-fluid{
+    width: 100%;
 }

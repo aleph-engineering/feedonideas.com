@@ -51,6 +51,9 @@ var routeConfig = function(app, io){
             res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
         });
     });
+    app.get('/mytopics/create', function(req, res, next){
+        res.render('controls/createTopic', {title: 'Create Topic', userProfile: req.user});
+    });
 
     app.get('/topic/:id', function(req,res){
         console.log(req.session.passport);

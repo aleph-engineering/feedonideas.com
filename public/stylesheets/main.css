@@ -44,3 +44,6 @@ main, footer {
     min-width: 200px;
     margin-bottom: .5em;
 }
+.material-icons.prefix{
+    top: .35em!important;
+}

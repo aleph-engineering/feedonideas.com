@@ -97,3 +97,5 @@ crashlytics-build.properties
 
 ##My ignored files
 *.ign.*
+
+public/uploads/

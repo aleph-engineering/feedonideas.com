@@ -1,13 +1,21 @@
 'use strict';
 const controllers = require('../controllers'),
     models = require('../models'),
-    uuid = require('uuid');
+    uuid = require('uuid'),
+    multer = require('multer');
 
 var userController = controllers.userController,
     topicController= controllers.topicController,
     feedController = controllers.feedController,
     userSession = {}, roomIdent="",
     topicModel = models.Topic;
+
+var upload = multer({
+    dest: 'public/uploads/',
+    limits: {
+        fileSize: 2 * 1024 * 1024 //2 MB
+    }
+});
 
 var routeConfig = function(app, io){
     /**
@@ -62,7 +70,8 @@ var routeConfig = function(app, io){
         // Render the chant.html view
         res.render('controls/topic');
     });
-    app.post('/mytopics/create', function(req, res, next){
+
+    app.post('/mytopics/create', upload.single('picture'), function(req, res, next){
         var newTopic = new topicModel({
             name : req.body.topicName,
             siteUrl : req.body.siteUrl,
@@ -70,7 +79,7 @@ var routeConfig = function(app, io){
             roomId : uuid.v1(),
             category : req.body.category,
             authorId : userSession.user,
-            pictureUrl : "/images/image-empty.png",
+            pictureUrl : '/uploads/' + req.file.filename,
             available : true,
             votesPerUser : req.body.maxVotes,
             maxUpsPerUser : req.body.maxVotes,
@@ -83,8 +92,10 @@ var routeConfig = function(app, io){
                     res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
                 });
             }
-            console.log("ERROR SAVING TOPIC: " + error);
-            res.redirect("/mytopics");
+            else {
+                console.log("ERROR SAVING TOPIC: " + error);
+                res.redirect("/mytopics");
+            }
         });
     });
 

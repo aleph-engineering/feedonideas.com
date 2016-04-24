@@ -5,7 +5,7 @@ block main
     script(src='/bower_components/knockout/dist/knockout.js')
     script(src='/bower_components/jquery-validation/dist/jquery.validate.js')
     div(class='row')
-        form(id='newTopicForm' class='col s12 m12 l6' action='/mytopics/create' method='POST')
+        form(id='newTopicForm' class='col s12 m12 l6' action='/mytopics/create' method='POST' enctype='multipart/form-data')
             div(class='card-panel')
                 h5(class='center comf-font cyan-text') New Topic
                 div(class='row')

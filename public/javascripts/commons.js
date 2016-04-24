@@ -9,6 +9,7 @@ function commonsMaterializaActivations(){
     $('.modal-trigger').leanModal(); //trigger to activate modal
     $('.parallax').parallax();       //activate parallax
     $('.tooltipped').tooltip({delay: 50});
+    $('select').material_select();
 }
 function customActivations(){
     "use strict";

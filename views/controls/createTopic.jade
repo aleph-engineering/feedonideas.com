@@ -1,0 +1,72 @@
+extends ../index
+
+block main
+    script(src='/bower_components/knockout/dist/knockout.js')
+    div(class='row')
+        form(class='col s12 m12 l6' action='/mytopics/create' method='POST')
+            div(class='card-panel')
+                h5(class='center comf-font cyan-text') New Topic
+                div(class='row')
+                    div(class='input-field col s12 m6')
+                        i(class='material-icons prefix') receipt
+                        input(class='validate' id='topicName' name='topicName' type='text' data-bind="value: name, valueUpdate: 'afterkeydown'")
+                        label(for='topicName') Topic name
+                    div(class='input-field col s12 m6')
+                        i(class='material-icons prefix') http
+                        input(class='validate' id='siteUrl' name='siteUrl' type='url' data-bind="value: siteUrl, valueUpdate: 'afterkeydown'")
+                        label(for='siteUrl') Site URL
+                div(class='row')
+                    div(class='input-field col s12 m6')
+                        i(class='material-icons prefix') local_offer
+                        select(class='form-select' name='category')
+                            option(value="" disabled selected) Choose category
+                            option(value="Information Technologies") Information Technologies
+                            option(value="Business") Business
+                            option(value="Social comunity") Social comunity
+                        label Category
+                    div(class="file-field input-field col s12 m6")
+                        i(class='material-icons prefix') panorama
+                        input(type='file' id='picture' name='picture')
+                        div(class='file-path-wrapper')
+                            input(class="file-path validate" type="text")
+                            label Picture
+                div(class='row')
+                    div(class='input-field col s4')
+                        i(class='material-icons prefix') touch_app
+                        input(class='validate' id='maxVotes' name='maxVotes' type='number')
+                        label(for='maxVotes') Max Votes
+                    div(class='input-field col s4')
+                        i(class='material-icons prefix') star
+                        input(class='validate' id='maxUps' name='maxUps' type='number')
+                        label(for='maxUps') Max Ups
+                    div(class='input-field col s4')
+                        i(class='material-icons prefix') star_border
+                        input(class='validate' id='maxDowns' name='maxDowns' type='number')
+                        label(for='maxDowns') Max Downs
+                div(class='row')
+                    div(class='input-field col s12')
+                        i(class='material-icons prefix') description
+                        textarea(id="description" name="description" class="materialize-textarea" data-bind="value: description, valueUpdate: 'afterkeydown'")
+                        label(for="description") Description
+                div(class='row')
+                    button(class='btn btn-fluid') Done
+        div(class='col s12 m12 l4 offset-l1 center')
+            h5(class='comf-font cyan-text') Preview
+            div(class='row valign-wrapper')
+                div(class="card large topic-card card-preview")
+                    div(class="card-image waves-effect waves-block waves-light")
+                        img(class='activator' id="picture-preview" src='/images/image-empty.png')
+                        span(class="card-title" data-bind="text: name")
+                    div(class="card-content")
+                        span(class="card-title activator grey-text text-darken-4")
+                            i(class="material-icons right") more_vert
+                        a(href="#" style='display: block' class='left-align') FEEDS
+                    div(class="card-reveal")
+                        span(class="card-title grey-text text-darken-4" data-bind="text: name")
+                            i(class="material-icons right") close
+                        p(class="description" data-bind="text: description")
+                        a(class='chip left-align cyan darken-4 white-text' href='http://cuban.engineer' data-bind="text: siteUrl")
+    script(src='/javascripts/createTopic.js')
+
+
+            

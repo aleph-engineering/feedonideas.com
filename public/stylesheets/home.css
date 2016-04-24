@@ -74,3 +74,26 @@
     text-align: center!important;
 }
 
+/*****CARDS*****/
+.topic-card{
+    width: 100%!important;
+}
+.topic-card .card-image{
+    max-height: 85%!important;
+    height: 85%;
+}
+.topic-card .card-image img{
+    height: 100%;
+}
+.topic-card .card-content{
+    height: 15%!important;
+}
+.topic-card .card-image > .card-title{
+    width: 100%;
+    background-color: rgba(0,0,0,.8);
+    padding: 10px 20px;
+}
+.topic-card .description {
+    max-height: 70%;
+}
+

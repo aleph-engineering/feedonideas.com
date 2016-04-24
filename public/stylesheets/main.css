@@ -64,6 +64,9 @@ main, footer {
 }
 
 /*****CARDS*****/
+.topic-card{
+    width: 100%!important;
+}
 .topic-card .card-image{
     max-height: 85%!important;
     height: 85%;

@@ -36,21 +36,11 @@ var routeConfig = function(app, io){
     });
 
     app.get('/', function(req, res, next) {
-        res.render('index', { title: 'Profile', userProfile: req.user});
-    });
-    app.get('/create', function(req,res){
-
-        // Generate unique id for the room
-        var id = Math.round((Math.random() * 1000000));
-
-        // Redirect to the random room
-        res.cookie('topic-id', id, {path: '/room/'});
-        res.redirect('/topic/'+id);
+        res.render('profile', { title: 'Profile', userProfile: req.user});
     });
 
     app.get('/mytopics', function(req, res, next){
-        var topics = topicController.getUserTopics(userSession.user, function(error, model){
-            console.log(model);
+        topicController.getUserTopics(userSession.user, function(error, model){
             res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
         });
     });

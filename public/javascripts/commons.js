@@ -1,18 +1,21 @@
+'use strict';
 $(function(){
-    "use strict";
     commonsMaterializaActivations();
     customActivations();
 });
 function commonsMaterializaActivations(){
-    "use strict";
     $(".button-collapse").sideNav(); //button to show sidenav
-    $('.modal-trigger').leanModal(); //trigger to activate modal
+    $('.modal-trigger').leanModal({ //trigger to activate modal
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .8, // Opacity of modal background
+        ready: function() { }, // Callback for Modal open
+        complete: function() { } // Callback for Modal close
+    });
     $('.parallax').parallax();       //activate parallax
-    $('.tooltipped').tooltip({delay: 50});
-    $('select').material_select();
+    $('.tooltipped').tooltip({delay: 50}); //activate tooltips
+    $('select').material_select(); // activate form selects
 }
 function customActivations(){
-    "use strict";
     $('#show-logins').click(function(){
         $('.login-buttons').removeClass('hide').addClass('animated zoomIn');
     })

@@ -1,9 +1,9 @@
 extends ../index
 
-block center_content
+block main
     - var myTopics = topics
     link(rel='stylesheet' href='/stylesheets/controls/topics.css')
-    div(class='col s12 topics-list')
+    div(class='row')
         if myTopics.length > 0
             each item in myTopics
                 div(class='col l3 m6 s12')
@@ -19,32 +19,6 @@ block center_content
                             span(class="card-title grey-text text-darken-4") #{item.name}
                                 i(class="material-icons right") close
                             p #{item.description}
-    form(class='modal modal-fixed-footer' id='createTopic' method='post' action='/topics/create')
-        div(class='modal-content')
-            h5 Create new topic
-            div(class="row")
-                div(class='input-field')
-                    i(class='material-icons small prefix') local_offer
-                    input(class='validate' type='text' name='topicName' id='topicName' required='required')
-                    label(for='topicName') Topic Name*
-            div(class="row")
-                div(class='input-field')
-                    i(class='material-icons small prefix') panorama
-                    input(class='validate' type='text' name='pictureUrl' id='pictureUrl')
-                    label(for='pictureUrl' data-error="Please type a correct url address") Picture url
-            div(class="row")
-                div(class='input-field')
-                    i(class='material-icons small prefix') local_offer
-                    input(class='validate url' type='url' name='siteUrl' id='siteUrl')
-                    label(for='siteUrl' data-error="Please type a correct url address") Site url
-            div(class="row")
-                div(class='input-field')
-                    i(class='material-icons small prefix') description
-                    textarea(class='materialize-textarea' name='topicDesc' id='topicDesc')
-                    label(for='topicDesc' data-error="Please type a correct url address") Description
-        div(class="modal-footer")
-            button(class="modal-action waves-effect waves-light btn-flat cyan darken-4 white-text" type='submit') Done
-
-    div(class="fixed-action-btn" style="bottom: 45px; right: 24px")
-        a(class="btn-floating btn-large cyan darken-4 modal-trigger" href="#createTopic" data-target='createTopic')
+    div(class="fixed-action-btn" style="bottom: 45px; right: 50px")
+        a(class="btn-floating btn-large cyan darken-4 tooltipped" href="/mytopics/create" data-position="top" data-tooltip="Create new Topic")
             i(class="large material-icons") add

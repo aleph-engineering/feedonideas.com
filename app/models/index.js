@@ -84,6 +84,7 @@ const UserProfileSchema = new Schema({
 
 const TopicSchema = new Schema({
     name            : { type: String, unique: true },
+    category        : { type: String },
     roomId          : { type: String, unique: true },
     authorId        : { type: String },
     pictureUrl      : { type: String },

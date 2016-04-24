@@ -3,6 +3,9 @@
     background-color: #004e51;
     /*background-color: #006064;*/
 }
+.nav-wrapper{
+    padding-right: 40px;
+}
 .nav-wrapper li.avatar{
     padding: 2em 3em 0 3em;
     background-color: #004e51;

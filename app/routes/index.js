@@ -1,11 +1,13 @@
 'use strict';
 const controllers = require('../controllers'),
-    models = require('../models');
+    models = require('../models'),
+    uuid = require('uuid');
 
 var userController = controllers.userController,
     topicController= controllers.topicController,
     feedController = controllers.feedController,
-    userSession = {}, roomIdent="";
+    userSession = {}, roomIdent="",
+    topicModel = models.Topic;
 
 var routeConfig = function(app, io){
     /**
@@ -60,19 +62,30 @@ var routeConfig = function(app, io){
         // Render the chant.html view
         res.render('controls/topic');
     });
-    app.post('/topics/create', function(req, res, next){
-        const name = req.body.topicName,
-            pictureUrl = req.body.pictureUrl,
-            siteUrl = req.body.siteUrl,
-            topicDesc = req.body.topicDesc;
-        console.log('Name: '+ name);
-        console.log('Name: '+ pictureUrl);
-        console.log('Name: '+ siteUrl);
-        console.log('Name: '+ topicDesc);
-        topicController.saveNewTopic(name,userSession.user,pictureUrl,siteUrl,topicDesc, function(error,model){
-            if(error) console.log(error);
-            res.redirect('/mytopics');
-        })
+    app.post('/mytopics/create', function(req, res, next){
+        var newTopic = new topicModel({
+            name : req.body.topicName,
+            siteUrl : req.body.siteUrl,
+            topicDesc : req.body.description,
+            roomId : uuid.v1(),
+            category : req.body.category,
+            authorId : userSession.user,
+            pictureUrl : "/images/image-empty.png",
+            available : true,
+            votesPerUser : req.body.maxVotes,
+            maxUpsPerUser : req.body.maxVotes,
+            maxDownsPerUser : req.body.maxDowns
+        });
+        newTopic.save(function(error, model){
+            if(!error){
+                var topics = topicController.getUserTopics(userSession.user, function(error, model){
+                    console.log(model);
+                    res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
+                });
+            }
+            console.log("ERROR SAVING TOPIC: " + error);
+            res.redirect("/mytopics");
+        });
     });
 
 

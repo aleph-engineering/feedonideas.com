@@ -96,7 +96,7 @@ var routeConfig = function(app, io){
         topicController.getTopicByRoomId(roomId, function(error, model){
             if(!error){
                 feedController.getFeedsByTopic(model, function(error, model){
-                    res.render('controls/feeds', {feeds: model, roomId: roomId});
+                    res.render('controls/feeds', {feeds: model, roomId: roomId, userProfile: req.user});
                     return;
                 });
             }

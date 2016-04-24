@@ -1,8 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Comfortaa);
-
-.comf-font:not(i){
-    font-family: Comfortaa!important;
-}
 .parallax-text{
     position: absolute;
     width: 100%;
@@ -65,21 +60,7 @@
 .marg-top4{
     margin-top: 2em;
 }
-.topic-card .card-image{
-    max-height: 85%!important;
-    height: 85%;
-}
-.topic-card .card-image img{
-    height: 100%;
-}
-.topic-card .card-content{
-    height: 15%!important;
-}
-.topic-card .card-image > .card-title{
-    width: 100%;
-    background-color: rgba(0,0,0,.8);
-    padding: 10px 20px;
-}
+
 .page-footer a.btn-floating,
 .login-buttons a.btn-floating{
     margin-right: 1em;

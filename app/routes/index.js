@@ -2,6 +2,7 @@
 const controllers = require('../controllers'),
     models = require('../models'),
     uuid = require('uuid'),
+    macAd = require('getmac'),
     multer = require('multer');
 
 var userController = controllers.userController,
@@ -43,21 +44,11 @@ var routeConfig = function(app, io){
     });
 
     app.get('/', function(req, res, next) {
-        res.render('index', { title: 'Profile', userProfile: req.user});
-    });
-    app.get('/create', function(req,res){
-
-        // Generate unique id for the room
-        var id = Math.round((Math.random() * 1000000));
-
-        // Redirect to the random room
-        res.cookie('topic-id', id, {path: '/room/'});
-        res.redirect('/topic/'+id);
+        res.render('profile', { title: 'Profile', userProfile: req.user});
     });
 
     app.get('/mytopics', function(req, res, next){
-        var topics = topicController.getUserTopics(userSession.user, function(error, model){
-            console.log(model);
+        topicController.getUserTopics(userSession.user, function(error, model){
             res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
         });
     });
@@ -106,7 +97,7 @@ var routeConfig = function(app, io){
         topicController.getTopicByRoomId(roomId, function(error, model){
             if(!error){
                 feedController.getFeedsByTopic(model, function(error, model){
-                    res.render('controls/feeds', {feeds: model, roomId: roomId});
+                    res.render('controls/feeds', {feeds: model, roomId: roomId, userProfile: req.user});
                     return;
                 });
             }
@@ -122,6 +113,13 @@ var routeConfig = function(app, io){
         })
     });
 
+    app.get('/toNeutrino', function(req, res, next) {
+        var mac = macAd.getMac(function (err, macAddress) {
+            if (err)  throw err;
+            console.log(macAddress);
+            res.render('controls/home', {macAdd: macAddress});
+        });
+    });
     var socketConfig = io.on('connection', function (socket) {
         socket.userId = userSession.user;
         require('../socket.io')(io,socket);

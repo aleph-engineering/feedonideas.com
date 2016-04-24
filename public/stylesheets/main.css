@@ -64,6 +64,9 @@ main, footer {
 }
 
 /*****CARDS*****/
+.topic-card{
+    width: 100%!important;
+}
 .topic-card .card-image{
     max-height: 85%!important;
     height: 85%;
@@ -81,7 +84,7 @@ main, footer {
 }
 .topic-card .description{
     max-height: 70%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /******BUTTONS******/

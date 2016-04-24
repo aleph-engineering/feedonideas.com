@@ -1,6 +1,16 @@
 var reader = new FileReader(),
     imageFiles;
-$(function () {
+
+reader.onload = function (e) {
+    $('#picture').attr('value', e.target.result);
+};
+reader.onloadend = function (e) {
+    if (e.target.readyState == FileReader.DONE) {
+        //SOME ACTION AFTER LOADING IS DONE
+    }
+};
+
+$(function(){
     "use strict";
     $('#picture').change(function () {
         imageFiles = this.files;
@@ -55,14 +65,3 @@ $(function () {
 function readFile() {
     reader.readAsDataURL(imageFiles[0]);
 }
-
-reader.onload = function (e) {
-    var image = $('#picture').attr('src', e.target.result);
-    $('#picture-preview').attr('src', e.target.result);
-};
-reader.onloadend = function (e) {
-    if (e.target.readyState == FileReader.DONE) {
-        alert("Image done")
-    }
-};
-

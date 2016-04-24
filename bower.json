@@ -29,6 +29,7 @@
     "jquery": "2.2.1",
     "Materialize": "materialize#0.97.5",
     "socket.io": "~1.4.5",
-    "knockout": "^3.4.0"
+    "knockout": "^3.4.0",
+    "jquery-validation": "^1.15.0"
   }
 }

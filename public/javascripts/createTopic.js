@@ -1,11 +1,44 @@
 var reader = new FileReader(),
     imageFiles;
-$(function(){
+$(function () {
     "use strict";
     $('#picture').change(function () {
         imageFiles = this.files;
         readFile();
     });
+
+    // VALIDATION
+    $.validator.addMethod('positiveNumber', function (value) {
+        return Number(value) > 0;
+    }, 'Must be a positive number.');
+     $('#newTopicForm').validate({
+        rules: {
+            category: {
+                required: true
+            },
+            maxUps: {
+                positiveNumber: true
+            },
+            maxDowns: {
+                positiveNumber: true
+            }
+        },
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                if (element[0].type == "file") {
+                    var fileDiv = $(element).siblings('.file-path-wrapper');
+                    error.insertAfter(fileDiv);
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        }
+    });
+
     var topic = {
         name: ko.observable(),
         siteUrl: ko.observable(),

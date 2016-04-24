@@ -92,8 +92,7 @@ const TopicSchema = new Schema({
     topicDesc       : { type: String },
     available       : { type: Boolean, default: false },
     maxUpsPerUser   : { type: Number },
-    maxDownsPerUser : { type: Number },
-    votesPerUser    : { type: Number }
+    maxDownsPerUser : { type: Number }
 });
 
 const NotificationSchema =new Schema({

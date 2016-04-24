@@ -1,52 +1,50 @@
 extends ../index
 
 block main
+    link(rel='stylesheet', href='/stylesheets/controls/createTopic.css')
     script(src='/bower_components/knockout/dist/knockout.js')
+    script(src='/bower_components/jquery-validation/dist/jquery.validate.js')
     div(class='row')
-        form(class='col s12 m12 l6' action='/mytopics/create' method='POST')
+        form(id='newTopicForm' class='col s12 m12 l6' action='/mytopics/create' method='POST')
             div(class='card-panel')
                 h5(class='center comf-font cyan-text') New Topic
                 div(class='row')
                     div(class='input-field col s12 m6')
-                        i(class='material-icons prefix') receipt
-                        input(class='validate' id='topicName' name='topicName' type='text' data-bind="value: name, valueUpdate: 'afterkeydown'")
+                        i(class='material-icons prefix') title
+                        input(class='validate' id='topicName' name='topicName' type='text' data-bind="value: name, valueUpdate: 'afterkeydown'" required)
                         label(for='topicName') Topic name
                     div(class='input-field col s12 m6')
                         i(class='material-icons prefix') http
-                        input(class='validate' id='siteUrl' name='siteUrl' type='url' data-bind="value: siteUrl, valueUpdate: 'afterkeydown'")
+                        input(class='validate' id='siteUrl' name='siteUrl' type='url' data-bind="value: siteUrl, valueUpdate: 'afterkeydown'" required)
                         label(for='siteUrl') Site URL
                 div(class='row')
                     div(class='input-field col s12 m6')
                         i(class='material-icons prefix') local_offer
-                        select(class='form-select' name='category')
-                            option(value="" disabled selected) Choose category
+                        select(class='form-select' name='category' id='category')
+                            option(value="") Choose category
                             option(value="Information Technologies") Information Technologies
                             option(value="Business") Business
-                            option(value="Social comunity") Social comunity
+                            option(value="Social community") Social community
                         label Category
                     div(class="file-field input-field col s12 m6")
                         i(class='material-icons prefix') panorama
-                        input(type='file' id='picture' name='picture')
+                        input(type='file' id='picture' name='picture' required)
                         div(class='file-path-wrapper')
                             input(class="file-path validate" type="text")
                             label Picture
                 div(class='row')
-                    div(class='input-field col s4')
-                        i(class='material-icons prefix') touch_app
-                        input(class='validate' id='maxVotes' name='maxVotes' type='number')
-                        label(for='maxVotes') Max Votes
-                    div(class='input-field col s4')
-                        i(class='material-icons prefix') star
-                        input(class='validate' id='maxUps' name='maxUps' type='number')
+                    div(class='input-field col s12 m6 tooltipped' data-tooltip='Limit of up votes a user can give per Feed' data-position='top' data-delay='50')
+                        i(class='material-icons prefix') thumb_up
+                        input(class='validate' id='maxUps' name='maxUps' type='number' required)
                         label(for='maxUps') Max Ups
-                    div(class='input-field col s4')
-                        i(class='material-icons prefix') star_border
-                        input(class='validate' id='maxDowns' name='maxDowns' type='number')
+                    div(class='input-field col s12 m6 tooltipped' data-tooltip='Limit of down votes a user can give per Feed' data-position='top' data-delay='50')
+                        i(class='material-icons prefix') thumb_down
+                        input(class='validate' id='maxDowns' name='maxDowns' type='number' required)
                         label(for='maxDowns') Max Downs
                 div(class='row')
                     div(class='input-field col s12')
                         i(class='material-icons prefix') description
-                        textarea(id="description" name="description" class="materialize-textarea" data-bind="value: description, valueUpdate: 'afterkeydown'")
+                        textarea(id="description" name="description" class="materialize-textarea" data-bind="value: description, valueUpdate: 'afterkeydown'" required)
                         label(for="description") Description
                 div(class='row')
                     button(class='btn btn-fluid') Done

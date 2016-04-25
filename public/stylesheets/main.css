@@ -3,7 +3,7 @@
 .comf-font:not(i){
     font-family: Comfortaa!important;
 }
-main, footer {
+main, .navbar-fixed {
     padding-left: 240px;
 }
 @media only screen and  (min-width: 1601px) {
@@ -17,12 +17,15 @@ main, footer {
     }
 }
 @media (min-width: 993px) and (max-width: 1200px) {
+    header, main, .navbar-fixed {
+        padding-left: 0px;
+    }
     .modal{
         width: 60%;
     }
 }
 @media only screen and (max-width : 992px) {
-    header, main, footer {
+    header, main, .navbar-fixed {
         padding-left: 0;
     }
     .modal{

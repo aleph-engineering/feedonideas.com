@@ -5,6 +5,11 @@
 }
 .nav-wrapper{
     padding-right: 40px;
+    padding-left: 40px;
+}
+.nav-wrapper .brand-logo{
+    margin-left: 1em;
+    font-size: 2rem;
 }
 .nav-wrapper li.avatar{
     padding: 2em 3em 0 3em;

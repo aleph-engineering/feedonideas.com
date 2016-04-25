@@ -29,6 +29,9 @@ var routeConfig = function(app, io){
             res.render('home');
         }
     });
+
+    require('./topicsRoutes')(app); // Routes for topics
+
     app.get('/test/getMaxUps', function(req, res, next){
         var id = "5711c8e29d4f45e34c8a8156";
         topicController.getMaxUps(id, function(error, model){
@@ -107,6 +110,11 @@ var routeConfig = function(app, io){
             res.cookie('room.id', roomId);
             res.render('controls/feeds', {});
         })
+    });
+
+    app.get('/logout', function(req,res){
+        req.session.destroy();
+        res.redirect('/home');
     });
 
     var socketConfig = io.on('connection', function (socket) {

@@ -49,7 +49,7 @@ var routeConfig = function(app, io){
 
     app.get('/mytopics', function(req, res, next){
         topicController.getUserTopics(userSession.user, function(error, model){
-            res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
+            res.render('controls/mytopics', { title: "My topics", userProfile: req.user, topics: model});
         });
     });
     app.get('/mytopics/create', function(req, res, next){
@@ -57,9 +57,7 @@ var routeConfig = function(app, io){
     });
 
     app.get('/topic/:id', function(req,res){
-        console.log(req.session.passport);
-        // Render the chant.html view
-        res.render('controls/topic');
+        res.render('controls/topic', {title: 'Topic'});
     });
 
     app.post('/mytopics/create', upload.single('picture'), function(req, res, next){
@@ -80,7 +78,7 @@ var routeConfig = function(app, io){
             if(!error){
                 var topics = topicController.getUserTopics(userSession.user, function(error, model){
                     console.log(model);
-                    res.render('controls/mytopics', { title: "MyTopics", userProfile: req.user, topics: model});
+                    res.render('controls/mytopics', { title: "My Topics", userProfile: req.user, topics: model});
                 });
             }
             else {
@@ -94,11 +92,10 @@ var routeConfig = function(app, io){
     app.get('/feeds/:roomId', function(req, res, next){
         var roomId = req.params.roomId;
         console.log("ROOM ID: " + roomId);
-        topicController.getTopicByRoomId(roomId, function(error, model){
+        topicController.getTopicByRoomId(roomId, function(error, topic){
             if(!error){
-                feedController.getFeedsByTopic(model, function(error, model){
-                    res.render('controls/feeds', {feeds: model, roomId: roomId, userProfile: req.user});
-                    return;
+                feedController.getFeedsByTopic(topic, function(error, model){
+                    res.render('controls/feeds', {title: topic.name ,feeds: model, roomId: roomId, userProfile: req.user});
                 });
             }
         });

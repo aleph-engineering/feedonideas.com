@@ -1,7 +1,7 @@
 # FOI
 
 ## How to launch
-git clone https://github.com/aleph-engineering/foi.git
+git clone https://github.com/aleph-engineering/feedonideas.com.git
 
 ### install npm packages
 ```

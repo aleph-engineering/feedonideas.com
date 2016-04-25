@@ -2,7 +2,7 @@ var reader = new FileReader(),
     imageFiles;
 
 reader.onload = function (e) {
-    $('#picture').attr('value', e.target.result);
+    $('#picturePreview').attr('src', e.target.result);
 };
 reader.onloadend = function (e) {
     if (e.target.readyState == FileReader.DONE) {

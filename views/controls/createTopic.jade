@@ -1,7 +1,7 @@
 extends ../profile
 
 block main
-    link(rel='stylesheet', href='/stylesheets/controls/createTopic.css')
+    link(rel='stylesheet' href='/stylesheets/controls/createTopic.css')
     script(src='/bower_components/knockout/dist/knockout.js')
     script(src='/bower_components/jquery-validation/dist/jquery.validate.js')
     div(class='row')
@@ -53,7 +53,7 @@ block main
             div(class='row valign-wrapper')
                 div(class="card large topic-card card-preview")
                     div(class="card-image waves-effect waves-block waves-light")
-                        img(class='activator' id="picture-preview" src='/images/image-empty.png')
+                        img(class='activator' id="picturePreview" src='/images/image-empty.png')
                         span(class="card-title" data-bind="text: name")
                     div(class="card-content")
                         span(class="card-title activator grey-text text-darken-4")
@@ -64,7 +64,7 @@ block main
                         span(class="card-title grey-text text-darken-4" data-bind="text: name")
                             i(class="material-icons right") close
                         p(class="description" data-bind="text: description")
-                        a(class='chip left-align cyan darken-4 white-text' href='http://cuban.engineer' data-bind="text: siteUrl")
+                        a(class='chip left-align cyan darken-4 white-text' href='#' data-bind="text: siteUrl")
     script(src='/javascripts/createTopic.js')
 
             

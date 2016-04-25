@@ -8,8 +8,8 @@ const passport = require('passport'),
 
 const googleConfig = function(app){
     passport.use(new googleStrategy({
-            clientID: ( process.env.GOOGLE_CLIENT_ID || ''),
-            clientSecret: (process.env.GOOGLE_CLIENT_SECRET || ''),
+            clientID: ( process.env.FOI_GOOGLE_CLIENT_ID || ''),
+            clientSecret: (process.env.FOI_GOOGLE_CLIENT_SECRET || ''),
             callbackURL: "/auth/google/callback",
             profileFields: ['id','displayName', 'picture', 'gender', 'birthday' , 'email']
         },

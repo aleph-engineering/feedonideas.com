@@ -8,8 +8,8 @@ const passport = require('passport'),
 
 const facebookConfig = function(app){
     passport.use(new facebookStrategy({
-            clientID: (process.env.FACEBOOK_APP_ID || ""),
-            clientSecret: (process.env.FACEBOOK_APP_SECRET || ""),
+            clientID: (process.env.FOI_FACEBOOK_APP_ID || ""),
+            clientSecret: (process.env.FOI_FACEBOOK_APP_SECRET || ""),
             callbackURL: "/auth/facebook/callback",
             profileFields: ['id','displayName', 'picture.type(large)', 'gender' ,'email'],
             enableProof: true

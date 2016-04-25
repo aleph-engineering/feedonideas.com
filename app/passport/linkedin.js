@@ -8,8 +8,8 @@ const passport = require('passport'),
 
 const linkedinConfig = function(app){
     passport.use(new linkedinStrategy({
-            clientID: ( process.env.LINKEDIN_API_KEY || '123'),
-            clientSecret: (process.env.LINKEDIN_SECRET_KEY || '123'),
+            clientID: ( process.env.FOI_LINKEDIN_API_KEY || '123'),
+            clientSecret: (process.env.FOI_LINKEDIN_SECRET_KEY || '123'),
             callbackURL: "/auth/linkedin/callback",
             scope: ['r_emailaddress', 'r_basicprofile'],
             state: true

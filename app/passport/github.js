@@ -8,8 +8,8 @@ const passport = require('passport'),
 
 const githubConfig = function(app){
     passport.use(new githubStrategy({
-        clientID: (process.env.GITHUB_CLIENT_ID || ""),
-        clientSecret: (process.env.GITHUB_CLIENT_SECRET || ""),
+        clientID: (process.env.FOI_GITHUB_CLIENT_ID || ""),
+        clientSecret: (process.env.FOI_GITHUB_CLIENT_SECRET || ""),
         callbackURL: "/auth/github/callback"
     },
         function(accessToken, refreshToken, profile, done) {

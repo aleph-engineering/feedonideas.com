@@ -44,7 +44,7 @@ var mongoStoreConfig = new mongoStore({
 });
 app.use(session({
     key   : "toi.session.id",
-    secret: process.env.EXPRESS_SESSION_KEY,
+    secret: process.env.FOI_EXPRESS_SESSION_KEY,
     cookie: {maxAge: 7 * 24 * 60 * 60 * 1000},
     resave: false,
     saveUninitialized: true,
@@ -59,7 +59,7 @@ require('./app/passport')(app);
 /**
  * Configuration for socket.io
  */
-var port = process.env.PORT || '3000',
+var port = process.env.FOI_PORT || '3000',
     io = require('socket.io').listen(app.listen(port));
 
 //routes

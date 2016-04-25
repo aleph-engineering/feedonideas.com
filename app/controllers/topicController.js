@@ -19,6 +19,13 @@ var topicController = {
             })
         }
     },
+    getAvailableTopics(callback){
+        if (typeof callback === "function") {
+            topic.find({available: true},function(error, model){
+                callback(error, model);
+            })
+        }
+    },
     getUserTopics(userId, callback){
         if (typeof callback === "function") {
             topic.find({authorId: userId}, function(error, model){

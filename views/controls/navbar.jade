@@ -6,15 +6,12 @@ div(class='navbar-fixed')
             a(class="button-collapse hide-on-large-only" href="#" data-activates="sideNav")
                 i(class="material-icons") menu
             ul(class='right hide-on-small-only')
-                li(class='bold')
-                    a(href='/toNeutrino')
+                li(class='tooltipped' data-position="bottom" data-tooltip="Publics topics")
+                    a(href='/topics')
                         i(class='material-icons') view_module
-                li
-                    a(href='#')
-                        i(class='material-icons') notifications
-                li
-                    a(href='#')
-                        i(class='material-icons') chat
+                li(class='tooltipped' data-position="bottom" data-tooltip="Log out")
+                    a(href='/logout')
+                        i(class='material-icons show-always') power_settings_new
             ul(class='side-nav fixed cyan darken-4' id='sideNav')
                 li(class='avatar')
                     img(class='circle responsive-img z-depth-3' src=profile.loginAvatarUrl)

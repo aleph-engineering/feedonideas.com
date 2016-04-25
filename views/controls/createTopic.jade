@@ -1,4 +1,4 @@
-extends ../index
+extends ../profile
 
 block main
     link(rel='stylesheet', href='/stylesheets/controls/createTopic.css')
@@ -58,13 +58,13 @@ block main
                     div(class="card-content")
                         span(class="card-title activator grey-text text-darken-4")
                             i(class="material-icons right") more_vert
-                        a(href="#" style='display: block' class='left-align') FEEDS
+                        a(href="#" style='display: block' class='left-align')
+                            i(class='material-icons prefix tooltipped' data-tooltip='Feeds' data-position='right' data-delay='50' ) lightbulb_outline
                     div(class="card-reveal")
                         span(class="card-title grey-text text-darken-4" data-bind="text: name")
                             i(class="material-icons right") close
                         p(class="description" data-bind="text: description")
                         a(class='chip left-align cyan darken-4 white-text' href='http://cuban.engineer' data-bind="text: siteUrl")
     script(src='/javascripts/createTopic.js')
-
 
             

@@ -100,3 +100,11 @@ header, main {
 .btn-fluid{
     width: 100%;
 }
+
+.centered-cropped {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}

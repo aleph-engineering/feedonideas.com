@@ -23,6 +23,8 @@ var routeConfig = function(app, io){
      */
     app.use(function(req, res, next) {
         if (req.user) {
+            console.log(req);
+            console.log("DOMAIN: " + req);
             userSession = req.session.passport;
             profile = req.user;
             next();

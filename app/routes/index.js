@@ -7,7 +7,7 @@ const controllers = require('../controllers'),
 var userController = controllers.userController,
     topicController= controllers.topicController,
     feedController = controllers.feedController,
-    userSession = {}, roomIdent="",
+    userSession = {}, profile = {},
     topicModel = models.Topic;
 
 var upload = multer({
@@ -24,6 +24,7 @@ var routeConfig = function(app, io){
     app.use(function(req, res, next) {
         if (req.user) {
             userSession = req.session.passport;
+            profile = req.user;
             next();
         } else {
             res.render('home');
@@ -106,7 +107,6 @@ var routeConfig = function(app, io){
     app.post('/feeds/create/:roomId', function(req, res, next){
         const body = req.body.feedBody,
             roomId = req.params.roomId;
-        roomIdent = roomId;
         feedController.saveNewFeedWithRoomId(roomId, userSession.user, body, function(error, model){
             res.cookie('room.id', roomId);
             res.render('controls/feeds', {});
@@ -120,6 +120,7 @@ var routeConfig = function(app, io){
 
     var socketConfig = io.on('connection', function (socket) {
         socket.userId = userSession.user;
+        socket.avatar = profile.loginAvatarUrl;
         require('../socket.io')(io,socket);
     });
 };

@@ -17,8 +17,7 @@ const socketConfig = function(io, socket, userId){
     });
     socket.on('createFeed', function(data){
         findClientsSocket(io, socket.roomId);
-        feedController.saveNewFeedWithRoomId(socket.roomId, socket.userId, data.feedBody, function(error, model){
-            console.log("ERROR: " + error);
+        feedController.saveNewFeedWithRoomId(socket.roomId, socket.userId, socket.avatar ,data.feedBody, function(error, model){
             io.in(socket.roomId).emit('feedCreated', {feed: model});
         })
     });

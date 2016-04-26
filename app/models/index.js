@@ -63,6 +63,7 @@ const CommentSchema = new Schema({
 const FeedSchema = new Schema({
     topicId     : { type: String },
     authorId     : { type: String },
+    authorAvatar : { type: String },
     body         : { type: String },
     creationDate : { type: Date, default: new Date()},
     ups          : [{ type: String, default: [String] }],

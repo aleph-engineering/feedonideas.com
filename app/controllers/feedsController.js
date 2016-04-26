@@ -18,13 +18,14 @@ var feedController = {
             })
         }
     },
-    saveNewFeedWithRoomId(roomId, authorId, text, callback){
+    saveNewFeedWithRoomId(roomId, authorId, avatarUrl ,text, callback){
         if (typeof callback === "function") {
             topicController.getTopicByRoomId(roomId, function(error, model){
                 if(!error){
                     var newFeed = new feed({
                         topicId: model,
                         authorId: authorId,
+                        authorAvatar: avatarUrl,
                         body: text
                     });
                     newFeed.save(function(error, model){

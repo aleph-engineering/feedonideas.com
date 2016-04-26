@@ -3,6 +3,7 @@ block main
     - var model = feeds
     - var room = roomId
     link(rel='stylesheet' href='/stylesheets/controls/feeds.css')
+    script(src='/bower_components/jquery-validation/dist/jquery.validate.js')
     div(class='row')
         div(class='col l8 m8 s10 feed-page' data-room=room)
             ul(class='collection feeds')
@@ -48,12 +49,13 @@ block main
                     div(class="row")
                         div(class='input-field')
                             i(class='material-icons small prefix') lightbulb_outline
-                            textarea(class='materialize-textarea' name='feedText' id='feedText')
+                            textarea(class='materialize-textarea' name='feedText' id='feedText' required)
                             label(for='feedText' data-error="Please type a correct url address" id='feedBodyText') Your idea
                 div(class="modal-footer")
-                    button(class="modal-action waves-effect waves-light btn-flat cyan darken-4 white-text modal-close" type='reset') Done
+                    button(class="waves-effect waves-light btn-flat cyan darken-4 white-text" type='submit') Done
     div(class="fixed-action-btn" style="bottom: 45px; right: 24px")
-        a(class="btn-floating btn-large cyan darken-4 modal-trigger" href="#createFeed" data-target='createFeed')
+        a(id='createFeedLink' class="btn-floating btn-large cyan darken-4" href="#createFeed")
             i(class="large material-icons") add
     script(src='/javascripts/main.js')
+    script(src='/javascripts/feeds.js')
 

@@ -1,14 +1,26 @@
-$(function(){
+$(function () {
     "use strict";
-    var topicId = $.cookie('topic-id');
-    var socket = io();
 
-    connection(socket, topicId);
+    $('#createFeed').validate({
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $('#createFeedLink').on('click', function(e){
+        e.preventDefault();
+
+        $('#createFeed').openModal({
+            complete: function (e) {
+                var form = $('#createFeed');
+                form[0].reset();
+            }
+        });
+    });
 });
-
-function connection(socket, topicId){
-    "use strict";
-    socket.on('connection', function(){
-        socket.emit("enterFeedRoom", topicId);
-    })
-}

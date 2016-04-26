@@ -31,9 +31,16 @@ function voteDownEventHandler(socket){
 
 function createFeedEvent(socket){
     var feedForm = $('#createFeed');
-    feedForm.on('reset', function(e){
-        var feedText = $('#feedText').val();
-        socket.emit('createFeed', { feedBody: feedText})
+    feedForm.on('submit', function(e){
+        e.preventDefault();
+
+        if ($(this).valid()) {
+            var feedText = $('#feedText').val();
+            socket.emit('createFeed', {feedBody: feedText});
+
+            $(this).closeModal();
+            this.reset();
+        }
     });
 }
 

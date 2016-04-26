@@ -31,6 +31,7 @@ var routeConfig = function(app, io){
     });
 
     require('./topicsRoutes')(app); // Routes for topics
+    require('./apiRoutes')(app); //Routes for apis
 
     app.get('/test/getMaxUps', function(req, res, next){
         var id = "5711c8e29d4f45e34c8a8156";

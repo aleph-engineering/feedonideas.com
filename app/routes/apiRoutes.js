@@ -1,4 +1,5 @@
 'use strict';
+var fs = require('fs');
 const userController = require('../controllers').userController;
 
 var apiRoutes = function(app){
@@ -15,6 +16,13 @@ var apiRoutes = function(app){
         else
             res.status(404).send("You need to specify a correct identifier");
     });
+
+    app.get('/api/feedremote.js', function(req, res){
+        fs.readFile(__dirname + '/../../public/files/feedonideas.js',"utf-8" ,function(error, content){
+            res.writeHead(200, { 'Content-Type': 'text/javascript' });
+            res.end(content, 'utf-8');
+        });
+    })
 };
 
 module.exports = apiRoutes;

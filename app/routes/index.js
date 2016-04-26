@@ -22,9 +22,8 @@ var routeConfig = function(app, io){
      * Require always for authentication
      */
     app.use(function(req, res, next) {
+        if(req.url == "/api/feedremote.js") return next();
         if (req.user) {
-            console.log(req);
-            console.log("DOMAIN: " + req);
             userSession = req.session.passport;
             profile = req.user;
             next();

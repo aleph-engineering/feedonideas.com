@@ -15,7 +15,6 @@ $(function () {
 
     $('#createFeedLink').on('click', function(e){
         e.preventDefault();
-
         $('#createFeed').openModal({
             complete: function (e) {
                 var form = $('#createFeed');

@@ -22,6 +22,11 @@ const userController = {
                 callback(error, model);
             });
         }
+    },
+    getUserLoginAvatar: function(userId, callback){
+        userProfile.findById(userId, function(error, model){
+            callback(error, model.loginAvatarUrl);
+        })
     }
 
 };

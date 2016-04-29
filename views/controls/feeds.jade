@@ -2,60 +2,61 @@ extends ../profile
 block main
     - var model = feeds
     - var room = roomId
-    link(rel='stylesheet' href='/stylesheets/controls/feeds.css')
     script(src='/bower_components/jquery-validation/dist/jquery.validate.js')
-    div(class='row')
-        div(class='col l8 m8 s10 feed-page' data-room=room)
-            ul(class='collection feeds')
-                if model.length > 0
-                    each item in model
-                        li(class='collection-item avatar' id=item._id)
-                            img(class='circle' src='/images/refucktor.jpg')
-                            span(class='title')
-                            p(class='feed-text') #{item.body}
-                            div(class='chip')
-                                i(class='material-icons left') thumb_up
-                                label(class='left ups-counter') #{item.ups.length}
-                            div(class='chip')
-                                i(class='material-icons left') thumb_down
-                                label(class='left downs-counter') #{item.downs.length}
-                            div(class='secondary-content votes-actions')
-                                a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed=item._id.toString())
-                                    i(class='material-icons') thumb_up
-                                a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed=item._id.toString())
-                                    i(class='material-icons') thumb_down
-                else
-                    li(class='card-panel grey lighten-3 no-feeds')
-                        span(class="grey-text text-darken-3") This topic still doesn't have any feeds, please be the first to share your idea.
-            li(class='collection-item avatar hide feed-item')
-                img(class='circle' src='/images/refucktor.jpg')
-                span(class='title')
-                p(class='feed-text')
-                div(class='chip')
-                    i(class='material-icons left') thumb_up
-                    label(class='left ups-counter')
-                div(class='chip')
-                    i(class='material-icons left') thumb_down
-                    label(class='left downs-counter')
-                div(class='secondary-content votes-actions')
-                    a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed="")
-                        i(class='material-icons') thumb_up
-                    a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed="")
-                        i(class='material-icons') thumb_down
+    link(rel='stylesheet' href='/stylesheets/controls/feeds.css')
+    div(class='grid feeds-room' data-room=room)
+        if model.length > 0
+            each item in model
+                div(class='grid-item' id=item._id)
+                    div(class='item-header')
+                        img(class='responsive-img circle' src=item.authorAvatar)
+                        div(class='chip')
+                            i(class='material-icons') thumb_up
+                            label(class="left ups-counter") #{item.ups.length}
+                        div(class='chip')
+                            i(class='material-icons') thumb_down
+                            label(class="left ups-counter") #{item.downs.length}
+                    div(class="item-content")
+                        label #{item.body}
+                    div(class='item-footer')
+                        a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed=item._id.toString())
+                            i(class='material-icons') thumb_down
+                        a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed=item._id.toString())
+                            i(class='material-icons') thumb_up
 
-            form(class='modal modal-fixed-footer' id='createFeed' method='post')
-                div(class='modal-content')
-                    h5(class='cyan-text text-darken-4') Create new feed
-                    div(class="row")
-                        div(class='input-field')
-                            i(class='material-icons small prefix') lightbulb_outline
-                            textarea(class='materialize-textarea' name='feedText' id='feedText' required)
-                            label(for='feedText' data-error="Please type a correct url address" id='feedBodyText') Your idea
-                div(class="modal-footer")
-                    button(class="waves-effect waves-light btn-flat cyan darken-4 white-text" type='submit') Done
     div(class="fixed-action-btn" style="bottom: 45px; right: 24px")
         a(id='createFeedLink' class="btn-floating btn-large cyan darken-4" href="#createFeed")
             i(class="large material-icons") add
-    script(src='/javascripts/main.js')
+    li(class='collection-item avatar hide feed-item')
+        img(class='circle' src='/images/refucktor.jpg')
+        span(class='title')
+        p(class='feed-text')
+        div(class='chip')
+            i(class='material-icons left') thumb_up
+            label(class='left ups-counter')
+        div(class='chip')
+            i(class='material-icons left') thumb_down
+            label(class='left downs-counter')
+        div(class='secondary-content votes-actions')
+            a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed="")
+                i(class='material-icons') thumb_up
+            a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed="")
+                i(class='material-icons') thumb_down
+    form(class='modal modal-fixed-footer' id='createFeed' method='post')
+        div(class='modal-content')
+            h5(class='cyan-text text-darken-4') Create new feed
+            div(class="row")
+                div(class='input-field')
+                    i(class='material-icons small prefix') lightbulb_outline
+                    textarea(class='materialize-textarea' name='feedText' id='feedText' required)
+                    label(for='feedText' data-error="Please type a correct url address" id='feedBodyText') Your idea
+        div(class="modal-footer")
+            button(class="waves-effect waves-light btn-flat cyan darken-4 white-text" type='submit') Done
     script(src='/javascripts/feeds.js')
+    script(src='/bower_components/masonry/dist/masonry.pkgd.min.js')
+
+
+
+
+
 

@@ -1,34 +1,43 @@
-.collection.feeds{
-    border: none;
+* { box-sizing: border-box; }
+.grid{
+    padding: 1em 1.5em;
 }
-.feeds .feed-text{
-    max-width: 90%;
-    font-size: .85rem!important;
+@media only screen and  (min-width: 1601px) {}
+@media (min-width: 1201px) and (max-width: 1600px) {}
+@media (min-width: 993px) and (max-width: 1200px) {}
+@media (min-width: 769px) and (max-width : 992px) {}
+@media only screen and (max-width : 768px) {
 }
-.feeds .secondary-content a.btn-floating{
-    margin-left: .55em;
+.grid-item{
+    box-shadow: 2px 0 5px 1px rgba(50,50,50,.5);
+    padding: .8em 1em;
+    margin-bottom: 10px;
+    width: 300px;
+    float: left;
 }
-.feeds .chip .material-icons{
-    margin: 0!important;
-    max-width: 25px;
-    min-width: 25px;
-    padding-left: 0;
+.item-header,.item-header * {
+    vertical-align: middle;
+    margin-bottom: 5px;
 }
-.feeds .chip{
-    margin-right: .65em;
+.item-header .chip:not(:first-child){
+    margin-right: .4em;
 }
-@media (max-width: 768px) {
-    .feeds .feed-text {
-        max-width: 75%;
-    }
+.item-header img.responsive-img{
+    width: 45px;
+    display: inline-flex;
+    margin-right: .5em;
 }
-@media (min-width: 993px) and (max-width: 1200px) {
-    .feeds .feed-text {
-        max-width: 85%;
-    }
+.item-content{
+    width: 250px!important;
+    border-bottom: 1px solid rgba(100,100,100,.3);
+    padding-bottom: 1em;
 }
-@media (min-width: 1201px) and (max-width: 1600px){
-    .feeds .feed-text {
-        max-width: 80%;
-    }
+.item-footer{
+    padding: .7em 1.5em;
+}
+.item-footer .voteUp{
+    float: right;
+}
+.item-footer .voteDown{
+    float: left;
 }

@@ -6,63 +6,9 @@ $(function(){
     socket.on('connect', function(){
         socket.emit('enterFeedsRoom', {roomId: roomId})
     });
-    createFeedEvent(socket);
-    voteUpEventHandler(socket);
-    voteDownEventHandler(socket);
-
-    receiveFeedCreated(socket);
-    receiveVoteUp(socket);
-    receiveVoteDown(socket);
 });
 
-/***** Emitter events for socket.io *****/
-function voteUpEventHandler(socket){
-    $('.voteUp').click(function(){
-        var feedId = $(this).data('feed');
-        socket.emit('voteUp',{feed: feedId});
-    })
-}
-function voteDownEventHandler(socket){
-    $('.voteDown').click(function(){
-        var feedId = $(this).data('feed');
-        socket.emit('voteDown',{feed: feedId});
-    })
-}
 
-function createFeedEvent(socket){
-    var feedForm = $('#createFeed');
-    feedForm.on('submit', function(e){
-        e.preventDefault();
-
-        if ($(this).valid()) {
-            var feedText = $('#feedText').val();
-            socket.emit('createFeed', {feedBody: feedText});
-
-            $(this).closeModal();
-            this.reset();
-        }
-    });
-}
-
-
-/***** Receiver events for socket.io *****/
-function receiveVoteDown(socket){
-    socket.on('getVoteDowns', function(data){
-        updateVoteDown(data.feedId, data.downs);
-    });
-}
-function receiveVoteUp(socket){
-    socket.on('getVoteUps', function(data){
-        updateVoteUp(data.feedId, data.ups);
-    })
-}
-function receiveFeedCreated(socket){
-    socket.on('feedCreated', function(data){
-        console.log("RECEIVED FEED");
-        var feed = data.feed;
-        drawNewFeed(feed._id, feed.body, socket);
-    });
-}
 
 
 /***** Update visual element in the DOM *****/

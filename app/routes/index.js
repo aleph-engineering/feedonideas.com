@@ -99,7 +99,9 @@ var routeConfig = function(app, io){
         console.log("ROOM ID: " + roomId);
         topicController.getTopicByRoomId(roomId, function(error, topic){
             if(!error){
-                feedController.getFeedsByTopic(topic, function(error, model){
+                console.log("TOPIC: " + topic);
+                feedController.getFeedsByTopic(topic._id, function(error, model){
+                    console.log("MODEL: " + model);
                     res.render('controls/feeds', {title: topic.name ,feeds: model, roomId: roomId, userProfile: req.user});
                 });
             }
@@ -121,8 +123,7 @@ var routeConfig = function(app, io){
 
     var socketConfig = io.on('connection', function (socket) {
         socket.userId = userSession.user;
-        socket.avatar = profile.loginAvatarUrl;
-        require('../socket.io')(io,socket);
+        require('../socket.io')(io,socket, profile);
     });
 };
 

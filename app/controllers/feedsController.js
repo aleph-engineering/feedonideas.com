@@ -23,7 +23,7 @@ var feedController = {
             topicController.getTopicByRoomId(roomId, function(error, model){
                 if(!error){
                     var newFeed = new feed({
-                        topicId: model,
+                        topicId: model._id,
                         authorId: authorId,
                         authorAvatar: avatarUrl,
                         body: text

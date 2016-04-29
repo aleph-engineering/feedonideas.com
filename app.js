@@ -59,7 +59,7 @@ require('./app/passport')(app);
 /**
  * Configuration for socket.io
  */
-var port = process.env.FOI_PORT || '3000',
+var port = process.env.FOI_PORT || '3001',
     io = require('socket.io').listen(app.listen(port));
 
 //routes

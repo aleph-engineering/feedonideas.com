@@ -58,7 +58,7 @@ var topicController = {
     getTopicByRoomId(roomId, callback){
         if (typeof callback === "function") {
             topic.findOne({roomId: roomId}, function(error, model){
-                callback(error, model._id);
+                callback(error, model);
             })
         }
     }

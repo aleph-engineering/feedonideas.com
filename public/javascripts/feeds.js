@@ -104,3 +104,29 @@ function activateMasonry(){
         percentPosition: true
     });
 }
+
+function drawNewFeed(feedId, authorAvatar, body, ups, downs){
+    var html = $('<div class="grid-item" id="'+ feedId+'">' +
+        '<div class="item-header">' +
+            '<img class="responsive-img circle" src="'+ authorAvatar +'">' +
+            '<div class="chip>">' +
+                '<i class="material-icons"> thumb_up</i>' +
+                '<label class="left ups-counter">'+ ups +'</label>' +
+            '<div class="chip">' +
+                '<i class="material-icons"> thumb_down</i>' +
+                '<label class="left ups-counter">'+ downs +'</label>' +
+            '</div>'+
+        '<div class="item-content">' +
+            '<label>'+ body +'</label>'+
+        '</div>'+
+        '<div class="item-footer">'+
+            '<a class="waves-effect waves-circle waves-light btn-floating grey voteDown" href="#" data-feed="'+ feedId +'">' +
+                '<i class="material-icons"> thumb_down</i>'+
+            '</a>'+
+            '<a class="waves-effect waves-circle waves-light btn-floating grey voteDown" href="#" data-feed="'+ feedId +'">' +
+                '<i class="material-icons"> thumb_up</i>'+
+            '</a>'+
+        '</div>'+
+        '</div>'+'</div>');
+
+}

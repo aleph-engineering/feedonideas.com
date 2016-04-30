@@ -1,6 +1,6 @@
 'use strict';
 
 var connections = {
-    DEVELOPMENT_URL: 'mongodb://localhost/toi_db'
+    DEVELOPMENT_URL: 'mongodb://localhost/foi_db'
 };
 module.exports = connections;

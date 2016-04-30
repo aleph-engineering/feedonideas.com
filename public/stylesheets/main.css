@@ -23,9 +23,6 @@ header, main {
     }
 }
 @media (min-width: 993px) and (max-width: 1200px) {
-    header, main {
-        padding-left: 0px;
-    }
     .modal{
         width: 60%;
     }

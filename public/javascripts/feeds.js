@@ -7,7 +7,7 @@ $(function () {
     });
 
     /****** UI ******/
-    activateMasonry();
+    var grid = activateMasonry();
     openCreateFeedModal();
     validation();
 
@@ -17,7 +17,7 @@ $(function () {
     voteUpEvent(socket);
 
     /****** Socket IO Receivers ******/
-    receiveFeedCreated(socket);
+    receiveFeedCreated(socket, grid);
     receiveVoteDown(socket);
     receiveVoteUp(socket);
 });
@@ -62,11 +62,14 @@ function receiveVoteUp(socket){
         updateVoteUp(data.feedId, data.ups);
     })
 }
-function receiveFeedCreated(socket){
+
+function receiveFeedCreated(socket, grid){
     socket.on('feedCreated', function(data){
-        console.log("RECEIVED FEED");
-        //var feed = data.feed;
-        //drawNewFeed(feed._id, feed.body, socket);
+        console.log(data);
+        var feed = data.feed;
+        var element = $(createHTMLFeedElement(feed._id, feed.authorAvatar, feed.body));
+        grid.append(element).masonry( 'appended', element );
+        reloadHandlers(socket);
     });
 }
 
@@ -96,25 +99,24 @@ function openCreateFeedModal(){
     });
 }
 function activateMasonry(){
-    $('.grid').masonry({
+    return $('.grid').masonry({
         itemSelector: '.grid-item',
-        columnWidth: 250,
-        isFitWidth: true,
-        gutter: 10,
+        columnWidth: '.grid-sizer',
+        gutter: 20,
         percentPosition: true
     });
 }
-
-function drawNewFeed(feedId, authorAvatar, body, ups, downs){
-    var html = $('<div class="grid-item" id="'+ feedId+'">' +
+function createHTMLFeedElement(feedId, authorAvatar, body){
+    return '<div class="grid-item" id="'+ feedId+'">' +
         '<div class="item-header">' +
             '<img class="responsive-img circle" src="'+ authorAvatar +'">' +
-            '<div class="chip>">' +
-                '<i class="material-icons"> thumb_up</i>' +
-                '<label class="left ups-counter">'+ ups +'</label>' +
             '<div class="chip">' +
                 '<i class="material-icons"> thumb_down</i>' +
-                '<label class="left ups-counter">'+ downs +'</label>' +
+                '<label class="left downs-counter">0</label>' +
+            '</div>' +
+            '<div class="chip">' +
+                '<i class="material-icons"> thumb_up</i>' +
+                '<label class="left ups-counter">0</label>' +
             '</div>'+
         '<div class="item-content">' +
             '<label>'+ body +'</label>'+
@@ -123,10 +125,25 @@ function drawNewFeed(feedId, authorAvatar, body, ups, downs){
             '<a class="waves-effect waves-circle waves-light btn-floating grey voteDown" href="#" data-feed="'+ feedId +'">' +
                 '<i class="material-icons"> thumb_down</i>'+
             '</a>'+
-            '<a class="waves-effect waves-circle waves-light btn-floating grey voteDown" href="#" data-feed="'+ feedId +'">' +
+            '<a class="waves-effect waves-circle waves-light btn-floating voteUp" href="#" data-feed="'+ feedId +'">' +
                 '<i class="material-icons"> thumb_up</i>'+
             '</a>'+
         '</div>'+
-        '</div>'+'</div>');
-
+        '</div>'+'</div>';
+}
+function reloadHandlers(socket) {
+    $('.voteDown').unbind();
+    $('.voteUp').unbind();
+    voteUpEvent(socket);
+    voteDownEvent(socket);
+}
+function updateVoteUp(feedId, ups){
+    "use strict";
+    var selector = "#" + feedId + " .ups-counter";
+    $(selector).text(ups);
+}
+function updateVoteDown(feedId, downs){
+    "use strict";
+    var selector = "#" + feedId + " .downs-counter";
+    $(selector).text(downs);
 }

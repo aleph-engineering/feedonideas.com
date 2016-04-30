@@ -5,17 +5,18 @@ block main
     script(src='/bower_components/jquery-validation/dist/jquery.validate.js')
     link(rel='stylesheet' href='/stylesheets/controls/feeds.css')
     div(class='grid feeds-room' data-room=room)
+        div(class='grid-sizer')
         if model.length > 0
             each item in model
                 div(class='grid-item' id=item._id)
                     div(class='item-header')
                         img(class='responsive-img circle' src=item.authorAvatar)
                         div(class='chip')
+                            i(class='material-icons') thumb_down
+                            label(class="left downs-counter") #{item.downs.length}
+                        div(class='chip')
                             i(class='material-icons') thumb_up
                             label(class="left ups-counter") #{item.ups.length}
-                        div(class='chip')
-                            i(class='material-icons') thumb_down
-                            label(class="left ups-counter") #{item.downs.length}
                     div(class="item-content")
                         label #{item.body}
                     div(class='item-footer')

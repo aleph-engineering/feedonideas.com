@@ -75,13 +75,12 @@ var routeConfig = function(app, io){
             authorId : userSession.user,
             pictureUrl : '/uploads/' + req.file.filename,
             available : true,
-            votesPerUser : req.body.maxVotes,
-            maxUpsPerUser : req.body.maxVotes,
+            maxUpsPerUser : req.body.maxUps,
             maxDownsPerUser : req.body.maxDowns
         });
         newTopic.save(function(error, model){
             if(!error){
-                var topics = topicController.getUserTopics(userSession.user, function(error, model){
+                topicController.getUserTopics(userSession.user, function(error, model){
                     console.log(model);
                     res.render('controls/mytopics', { title: "My Topics", userProfile: req.user, topics: model});
                 });

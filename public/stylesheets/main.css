@@ -35,6 +35,16 @@ header, main {
         width: 80%;
     }
 }
+/*Toast*/
+
+#toast-container{
+    right: 2%!important;
+}
+.toast{
+    font-size: .85rem;
+    padding: 0 .8em;
+    min-height: 35px;
+}
 
 /*Modal*/
 .modal > .modal-content > h5,

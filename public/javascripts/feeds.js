@@ -15,6 +15,7 @@ $(function () {
     createFeedEvent(socket);
     voteDownEvent(socket);
     voteUpEvent(socket);
+    receiveErrors(socket);
 
     /****** Socket IO Receivers ******/
     receiveFeedCreated(socket, grid);
@@ -72,8 +73,13 @@ function receiveFeedCreated(socket, grid){
         reloadHandlers(socket);
     });
 }
+function receiveErrors(socket){
+    socket.on('errorToast', function(data){
+        showToastNotification(data.error);
+    })
+}
 
-
+/***** User interface functions *****/
 function validation(){
     $('#createFeed').validate({
         errorElement: 'div',
@@ -138,12 +144,13 @@ function reloadHandlers(socket) {
     voteDownEvent(socket);
 }
 function updateVoteUp(feedId, ups){
-    "use strict";
     var selector = "#" + feedId + " .ups-counter";
     $(selector).text(ups);
 }
 function updateVoteDown(feedId, downs){
-    "use strict";
     var selector = "#" + feedId + " .downs-counter";
     $(selector).text(downs);
+}
+function showToastNotification(message){
+    Materialize.toast(message, 3500);
 }

@@ -75,7 +75,6 @@ const UserProfileSchema = new Schema({
     availableVotes  : { type: Number},
     name            : { type: String },
     email           : { type: String },
-    dashboardId     : { type: String, unique: true },
     loginAvatarUrl  : { type: String },
     reg_date        : { type: Date, default: new Date()},
     googleUser      : GoogleUserSchema,

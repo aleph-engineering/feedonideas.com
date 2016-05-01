@@ -43,23 +43,31 @@ var feedController = {
             })
         }
     },
-    setUp(feedId, userId, callback){
+    setUp(feedId, userId, maxUps ,callback){
         if (typeof callback === "function") {
             feed.findById(feedId, function(error, model){
                 if(!error){
-                    model.ups.push(userId);
-                    model.save(callback(error, model));
+                    if(maxUps > model.ups.length){
+                        model.ups.push(userId);
+                        model.save(callback(error, model));
+                    }
+                    else (callback(new Error("You can not give more 'Ups' to this feed."), null));
                 }
+                else callback(error, null);
             });
         }
     },
-    setDown(feedId, userId, callback) {
+    setDown(feedId, userId, maxDowns, callback) {
         if (typeof callback === "function") {
             feed.findById(feedId, function(error, model){
                 if(!error){
-                    model.downs.push(userId);
-                    model.save(callback(error, model));
+                    if(maxDowns > model.downs.length) {
+                        model.downs.push(userId);
+                        model.save(callback(error, model));
+                    }
+                    else (callback(new Error("You can not give more 'Downs' to this feed."), null));
                 }
+                else callback(error, null);
             });
         }
     },

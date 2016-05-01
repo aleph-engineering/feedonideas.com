@@ -1,5 +1,6 @@
 'use strict';
-const feedController = require('../controllers').feedController;
+const feedController = require('../controllers').feedController,
+    topicController = require('../controllers').topicController;
 
 const feedsSocket = function(io, socket, profile){
 
@@ -24,12 +25,19 @@ const feedsSocket = function(io, socket, profile){
      * Vote up event
      */
     socket.on('voteUp', function(data){
-        feedController.setUp(data.feed, socket.userId, function(error, model){
+        topicController.getTopicByRoomId(socket.roomId, (error, topic) =>{
             if(!error){
-                io.in(socket.roomId).emit('getVoteUps', {feedId: model._id, ups: model.ups.length});
+                feedController.setUp(data.feed, socket.userId, topic.maxUpsPerUser, (error, feed)=>{
+                    if(!error){
+                        io.in(socket.roomId).emit('getVoteUps', {feedId: feed._id, ups: feed.ups.length});
+                    }
+                    else{
+                        socket.emit('errorToast', {error : error.message});
+                    }
+                })
             }
             else{
-                console.log("VOTE UP ERROR: " + error);
+                socket.emit('errorToast', {error : error});
             }
         });
     });
@@ -37,10 +45,20 @@ const feedsSocket = function(io, socket, profile){
     /**
      * Vote down event
      */
-    socket.on('voteDown', function(data){
-        feedController.setDown(data.feed, socket.userId, function(error, model){
-            if(!error){
-                io.in(socket.roomId).emit('getVoteDowns', {feedId: model._id, downs: model.downs.length});
+    socket.on('voteDown', function(data) {
+        topicController.getTopicByRoomId(socket.roomId, (error, topic) => {
+            if (!error) {
+                feedController.setDown(data.feed, socket.userId, topic.maxDownsPerUser, (error, feed)=> {
+                    if (!error) {
+                        io.in(socket.roomId).emit('getVoteDowns', {feedId: feed._id, downs: feed.downs.length});
+                    }
+                    else {
+                        socket.emit('errorToast', {error: error.message});
+                    }
+                })
+            }
+            else {
+                socket.emit('errorToast', {error: error});
             }
         });
     });

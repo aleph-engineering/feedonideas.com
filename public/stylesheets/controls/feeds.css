@@ -48,7 +48,7 @@
     vertical-align: middle;
     margin-bottom: 5px;
 }
-.item-header .chip:not(:first-child){
+.item-header .chip-like:not(:first-child){
     margin-right: .4em;
 }
 .item-header img.responsive-img{
@@ -68,4 +68,23 @@
 }
 .item-footer .voteDown{
     float: left;
+}
+
+.chip-like {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+}
+
+.chip-like i.material-icons {
+    float: left;
+    font-size: 16px;
+    line-height: 32px;
+    padding-right: 8px;
 }

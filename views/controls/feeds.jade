@@ -11,12 +11,13 @@ block main
                 div(class='grid-item' id=item._id)
                     div(class='item-header')
                         img(class='responsive-img circle' src=item.authorAvatar)
-                        div(class='chip')
-                            i(class='material-icons') thumb_down
-                            label(class="left downs-counter") #{item.downs.length}
-                        div(class='chip')
+                        div(class='chip-like')
                             i(class='material-icons') thumb_up
-                            label(class="left ups-counter") #{item.ups.length}
+                            label(class="right ups-counter") #{item.ups.length}
+                        div(class='chip-like')
+                            i(class='material-icons') thumb_down
+                            label(class="right downs-counter") #{item.downs.length}
+
                     div(class="item-content")
                         label #{item.body}
                     div(class='item-footer')
@@ -28,21 +29,7 @@ block main
     div(class="fixed-action-btn" style="bottom: 45px; right: 24px")
         a(id='createFeedLink' class="btn-floating btn-large cyan darken-4" href="#createFeed")
             i(class="large material-icons") add
-    li(class='collection-item avatar hide feed-item')
-        img(class='circle' src='/images/refucktor.jpg')
-        span(class='title')
-        p(class='feed-text')
-        div(class='chip')
-            i(class='material-icons left') thumb_up
-            label(class='left ups-counter')
-        div(class='chip')
-            i(class='material-icons left') thumb_down
-            label(class='left downs-counter')
-        div(class='secondary-content votes-actions')
-            a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed="")
-                i(class='material-icons') thumb_up
-            a(href='#' class='waves-effect waves-circle waves-light btn-floating grey voteDown' data-feed="")
-                i(class='material-icons') thumb_down
+
     form(class='modal modal-fixed-footer' id='createFeed' method='post')
         div(class='modal-content')
             h5(class='cyan-text text-darken-4') Create new feed

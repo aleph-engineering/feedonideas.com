@@ -1,7 +1,6 @@
 'use strict';
 
 const models = require('../models'),
-    userProfile = models.UserProfile,
     topicController = require('./topicController'),
     feed = models.Feed;
 
@@ -47,13 +46,22 @@ var feedController = {
         if (typeof callback === "function") {
             feed.findById(feedId, function(error, model){
                 if(!error){
-                    if(maxUps > model.ups.length){
+                    if(model.ups.length > 0){
+                        let userUps = model.ups.filter((value)=> {
+                            return value === userId;
+                        });
+                        if (maxUps > userUps.length) {
+                            model.ups.push(userId);
+                            model.save(callback(error, model));
+                        }
+                        else (callback(new Error("You can't give more 'Ups' to this feed."), null));
+                    }
+                    else{
                         model.ups.push(userId);
                         model.save(callback(error, model));
                     }
-                    else (callback(new Error("You can not give more 'Ups' to this feed."), null));
                 }
-                else callback(error, null);
+                else callback(error | null, null);
             });
         }
     },
@@ -61,13 +69,22 @@ var feedController = {
         if (typeof callback === "function") {
             feed.findById(feedId, function(error, model){
                 if(!error){
-                    if(maxDowns > model.downs.length) {
+                    if(model.downs.length > 0){
+                        let userDowns = model.downs.filter((value)=> {
+                            return value === userId;
+                        });
+                        if (maxDowns > userDowns.length) {
+                            model.downs.push(userId);
+                            model.save(callback(error, model));
+                        }
+                        else (callback(new Error("You can't give more 'Downs' to this feed."), null));
+                    }
+                    else{
                         model.downs.push(userId);
                         model.save(callback(error, model));
                     }
-                    else (callback(new Error("You can not give more 'Downs' to this feed."), null));
                 }
-                else callback(error, null);
+                else callback(error | null, null);
             });
         }
     },

@@ -54,7 +54,7 @@ var routeConfig = function(app, io){
 
     app.get('/mytopics', function(req, res, next){
         topicController.getUserTopics(userSession.user, function(error, model){
-            res.render('controls/mytopics', { title: "My topics", userProfile: req.user, topics: model});
+            res.render('controls/mytopics', { title: "My topics", userProfile: req.user, myTopics: model});
         });
     });
     app.get('/mytopics/create', function(req, res, next){
@@ -82,7 +82,7 @@ var routeConfig = function(app, io){
             if(!error){
                 topicController.getUserTopics(userSession.user, function(error, model){
                     console.log(model);
-                    res.render('controls/mytopics', { title: "My Topics", userProfile: req.user, topics: model});
+                    res.render('controls/mytopics', { title: "My Topics", userProfile: req.user, myTopics: model});
                 });
             }
             else {

@@ -1,11 +1,11 @@
 extends ../profile
 
 block main
-    - var myTopics = topics
+    - var topics = myTopics
     link(rel='stylesheet' href='/stylesheets/controls/topics.css')
     div(class='row')
-        if myTopics.length > 0
-            each item in myTopics
+        if topics.length > 0
+            each item in topics
                 div(class='col l3 m6 s12')
                     div(class="card small topic-card")
                         div(class="card-image waves-effect waves-block waves-light")

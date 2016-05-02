@@ -21,7 +21,7 @@ var topicController = {
     },
     getAvailableTopics(callback){
         if (typeof callback === "function") {
-            topic.find({available: true},function(error, model){
+            topic.find({available: true},(error, model)=>{
                 callback(error, model);
             })
         }

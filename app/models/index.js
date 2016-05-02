@@ -66,8 +66,8 @@ const FeedSchema = new Schema({
     authorAvatar : { type: String },
     body         : { type: String },
     creationDate : { type: Date, default: new Date()},
-    ups          : [{ type: String, default: [String] }],
-    downs        : [{ type: String, default: [String] }],
+    ups          : [{ type: [String], default: [String] }],
+    downs        : [{ type: [String], default: [String] }],
     comments     : [CommentSchema]
 });
 
@@ -87,7 +87,6 @@ const TopicSchema = new Schema({
     name            : { type: String, unique: true },
     category        : { type: String },
     roomId          : { type: String, unique: true },
-    dashboardId     : { type: String, unique: true },
     authorId        : { type: String },
     pictureUrl      : { type: String },
     siteUrl         : { type: String },

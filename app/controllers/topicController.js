@@ -4,6 +4,15 @@ const models = require('../models'),
     userProfile = models.UserProfile,
     topic = models.Topic;
 
+
+function addDeletePermissions(currentUserId, topics){
+    topics.forEach(function(element, index, array){
+        var creator = element.authorId;
+        element.canDelete = creator === currentUserId;
+    });
+    return topics;
+}
+
 var topicController = {
     findTopicById(topicId, callback){
         if (typeof callback === "function") {
@@ -12,16 +21,18 @@ var topicController = {
             })
         }
     },
-    getAllTopics(callback){
+    getAllTopics(currentUser, callback){
         if (typeof callback === "function") {
             topic.find(function(error, model){
+                model = addDeletePermissions(currentUser.id, model);
                 callback(error, model);
             })
         }
     },
-    getAvailableTopics(callback){
+    getAvailableTopics(currentUser, callback){
         if (typeof callback === "function") {
             topic.find({available: true},(error, model)=>{
+                model = addDeletePermissions(currentUser.id, model);
                 callback(error, model);
             })
         }
@@ -29,6 +40,7 @@ var topicController = {
     getUserTopics(userId, callback){
         if (typeof callback === "function") {
             topic.find({authorId: userId}, function(error, model){
+                model = addDeletePermissions(userId, model);
                 callback(error, model);
             })
         }
@@ -46,6 +58,13 @@ var topicController = {
             newTopic.save(function(error, model){
                 callback(error, model);
             })
+        }
+    },
+    deleteTopic(topicId, callback){
+        if (typeof callback === "function") {
+            topic.findByIdAndRemove(topicId, function(error, model){
+                callback(error, model);
+            });
         }
     },
     getMaxUps(topicId, callback){

@@ -92,6 +92,7 @@ header, main {
 }
 .topic-card .card-content{
     height: 15%!important;
+    padding: .6em 1em;
 }
 .topic-card .card-image > .card-title{
     width: 100%;

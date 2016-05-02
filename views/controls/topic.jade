@@ -1,8 +1,27 @@
-extends ../layout
-block content
-    div
-        button(id='voteUp') VOTE UP
-    div
-        label(class='voteUp' id='voteUpText') 0
-    div
-        label(class='voteUp' id='cookieName')
+div(class='col l3 m6 s12')
+    div(class="card small topic-card")
+        div(class="card-image waves-effect waves-block waves-light")
+            img(class='activator centered-cropped' src=topic.pictureUrl)
+            span(class="card-title") #{topic.name}
+        div(class="card-content")
+            span(class="card-title activator grey-text text-darken-4")
+                i(class="material-icons right") more_vert
+            a(href="/feeds/"+topic.roomId class='left-align')
+                i(class='material-icons prefix tooltipped' data-tooltip='Feeds' data-position='right' data-delay='50' ) lightbulb_outline
+            if topic.canDelete
+                a(id="showDeleteModal" href='#deleteTopicModal' class='left-align modal-trigger' data-delete-url='/topic/delete/'+topic.id)
+                    i(class='material-icons prefix tooltipped' data-tooltip='Delete' data-position='right' data-delay='50' ) delete
+        div(class="card-reveal")
+            span(class="card-title grey-text text-darken-4") #{topic.name}
+                i(class="material-icons right") close
+            p #{topic.topicDesc}
+
+    div(id="deleteTopicModal" class="modal")
+        div(class="modal-content")
+            h4 Delete confirmation
+            p Are you sure you want to delete this topic?
+        div(class="modal-footer")
+            a(href="" class="modal-action modal-close waves-effect btn-flat") No
+            a(id="deleteLink" href="#!" class="modal-action modal-close waves-effect waves-red btn-flat") Yes
+
+    script(src='/javascripts/topic.js')

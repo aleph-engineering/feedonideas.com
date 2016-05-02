@@ -5,7 +5,7 @@ const topicModel = require('../models').Topic,
 
 const topicRoutes = function(app){
     app.get('/topics', function(req, res){
-        topicController.getAvailableTopics((error, model)=> {
+        topicController.getAvailableTopics(req.user, (error, model)=> {
             if(!error) res.render('topics', {title: "Public Topics", publicTopics: model, userProfile: req.user });
             else res.redirect('/profile');
         });

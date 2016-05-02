@@ -65,6 +65,12 @@ var routeConfig = function(app, io){
         res.render('controls/topic', {title: 'Topic'});
     });
 
+    app.get('/topic/delete/:id', function(req, res){
+        topicController.deleteTopic(req.params.id, function(error, model){
+           res.redirect(req.headers['referer']);
+        });
+    });
+
     app.post('/mytopics/create', upload.single('picture'), function(req, res, next){
         var newTopic = new topicModel({
             name : req.body.topicName,

@@ -1,5 +1,5 @@
 {
-  "name": "toi",
+  "name": "feedonideas.com",
   "description": "Share your ideas around the world",
   "main": "",
   "authors": [
@@ -7,10 +7,10 @@
   ],
   "license": "MIT",
   "keywords": [
-    "toi",
-    "turn",
+    "foi",
+    "feed",
     "ideas",
-    "TurnOnIdeas"
+    "FeedOnIdeas"
   ],
   "moduleType": [],
   "homepage": "",

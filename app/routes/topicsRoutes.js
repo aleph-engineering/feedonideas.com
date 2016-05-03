@@ -1,6 +1,7 @@
 'use strict';
 
-const multer = require('multer');
+const multer = require('multer'),
+    uuid = require('uuid');
 
 const topicModel = require('../models').Topic,
     topicController = require('../controllers').topicController;

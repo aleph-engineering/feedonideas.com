@@ -35,15 +35,6 @@ var routeConfig = function(app, io){
     require('./topicsRoutes')(app); // Routes for topics
     require('./apiRoutes')(app); //Routes for apis
 
-    app.get('/test/getMaxUps', function(req, res, next){
-        var id = "5711c8e29d4f45e34c8a8156";
-        topicController.getMaxUps(id, function(error, model){
-            if (error) console.log("ERROR: " + error);
-            console.log("MODEL: " + model);
-            res.redirect('/');
-        });
-    });
-
     app.get('/home', function(req, res, next){
         res.render('home');
     });

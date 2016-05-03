@@ -27,9 +27,9 @@ function readCookie(foiCookieName){
     }
     return null;
 }
-function makeRequest(){
+function getLastFeed(){
     $.ajax({
-            url: "/test",
+            url: "http://www.feedonideas.com/api/feeds",
             dataType: 'JSONP',
 
             headers: {"Authorization": "Bearer " + $('#myToken').val()}
@@ -40,18 +40,6 @@ function makeRequest(){
         .fail(function (jqXHR, textStatus) {
             alert("error: " + textStatus);
         });
-}
-function createCookie(name,value,days) {
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime()+(days*24*60*60*1000));
-        var expires = "; expires="+date.toGMTString();
-    }
-    else var expires = "";
-    document.cookie = name+"="+value+expires+"; path=/";
-}
-function createBox(){
-
 }
 function getSingleBox(){
     return '<div class="foi-box">' +
@@ -83,7 +71,7 @@ function getCssFile(){
 }
 function showFoiPanel(){
     $('.foi-box').click(()=>{
-        $('.foi-box img.foi-ico').fadeOut(200, () =>{
+        $('img.foi-ico').fadeOut(200, () =>{
             $('.foi-info-box').fadeIn(500);
         });
     })

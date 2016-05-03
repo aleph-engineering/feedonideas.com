@@ -84,20 +84,23 @@ header, main {
     width: 100%!important;
 }
 .topic-card .card-image{
-    max-height: 85%!important;
-    height: 85%;
+    max-height: 80%!important;
+    height: 80%;
 }
 .topic-card .card-image img{
     height: 100%;
 }
 .topic-card .card-content{
-    height: 15%!important;
+    height: 20%!important;
     padding: .6em 1em;
 }
 .topic-card .card-image > .card-title{
     width: 100%;
     background-color: rgba(0,0,0,.8);
     padding: 10px 20px;
+}
+.card-title i.material-icons{
+    margin-top: .5em;
 }
 .topic-card .description{
     max-height: 70%;

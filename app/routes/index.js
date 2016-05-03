@@ -1,7 +1,6 @@
 'use strict';
 const controllers = require('../controllers'),
-    models = require('../models'),
-    uuid = require('uuid');
+    models = require('../models');
 
 var userController = controllers.userController,
     topicController= controllers.topicController,

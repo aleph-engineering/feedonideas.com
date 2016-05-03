@@ -3,13 +3,14 @@ $(function(){
     const foiCookieName = "foiUserEmail";
     var foiUserEmailCookie = readCookie(foiCookieName);
     var $body = $('body');
-    $body.append(getCssFile());
-    $body.append(getSingleBox());
-    showFoiPanel();
-    hideFoiInfoBox();
-    showCreateFeedForm();
-    goBackToFeedList();
-    sendFeedButton();
+    lazyLoading($body, function(){
+        $body.append(getSingleBox());
+        showFoiPanel();
+        hideFoiInfoBox();
+        showCreateFeedForm();
+        goBackToFeedList();
+        sendFeedButton();
+    });
 });
 
 /**
@@ -27,24 +28,19 @@ function readCookie(foiCookieName){
     }
     return null;
 }
-function getLastFeed(){
-    $.ajax({
-            url: "http://www.feedonideas.com/api/feeds",
-            dataType: 'JSONP',
 
-            headers: {"Authorization": "Bearer " + $('#myToken').val()}
-        })
-        .done(function (data) {
-            console.log(data);
-        })
-        .fail(function (jqXHR, textStatus) {
-            alert("error: " + textStatus);
-        });
+function lazyLoading($body, callback){
+    if (typeof callback === "function") {
+        $body.append(getCssFile());
+        callback();
+    }
 }
 function getSingleBox(){
     return '<div class="foi-box">' +
-            '<img src="/images/lamp.ign.png" class="foi-ico"/>' +
-            '<div class="foi-info-box">' +
+            '<div class="foi-icon-box">' +
+                '<img src="https://s3-ap-southeast-1.amazonaws.com/feedonideas.com/foi_assets/foi_white_icon.png" class="foi-ico"/>' +
+            '</div>' +
+            '<div class="foi-info-box" style="display: none">' +
                 '<div class="foi-box-header">' +
                     '<label class="foi-header-text">Feed On Ideas</label>' +
                     '<button class="foi-create-feed">+</button>'+
@@ -67,11 +63,11 @@ function getSingleBox(){
         '</div>'
 }
 function getCssFile(){
-    return '<link rel="stylesheet" href="/files/feedonideas.css"/>';
+    return '<link rel="stylesheet" href="https://s3-ap-southeast-1.amazonaws.com/feedonideas.com/foi_assets/feedonideas.css"/>';
 }
 function showFoiPanel(){
     $('.foi-box').click(()=>{
-        $('img.foi-ico').fadeOut(200, () =>{
+        $('.foi-icon-box').fadeOut(200, () =>{
             $('.foi-info-box').fadeIn(500);
         });
     })
@@ -79,7 +75,7 @@ function showFoiPanel(){
 function hideFoiInfoBox(){
     $('.foi-box').mouseleave(()=>{
         $('.foi-info-box').fadeOut(200, ()=>{
-            $('.foi-box img.foi-ico').fadeIn(500);
+            $('.foi-icon-box').fadeIn(500);
         })
     });
 }
@@ -101,4 +97,18 @@ function sendFeedButton(){
     $('.send-new-feed').click(()=>{
         $('.foi-create-panel')[0].reset();
     })
+}
+function getLatestFeeds(){
+    $.ajax({
+            url: "http://www.feedonideas.com/api/feeds",
+            dataType: 'JSONP',
+
+            headers: {"Authorization": "Bearer " + $('#myToken').val()}
+        })
+        .done(function (data) {
+            console.log(data);
+        })
+        .fail(function (jqXHR, textStatus) {
+            alert("error: " + textStatus);
+        });
 }

@@ -1,21 +1,12 @@
 'use strict';
 const controllers = require('../controllers'),
     models = require('../models'),
-    uuid = require('uuid'),
-    multer = require('multer');
+    uuid = require('uuid');
 
 var userController = controllers.userController,
     topicController= controllers.topicController,
     feedController = controllers.feedController,
-    userSession = {}, profile = {},
-    topicModel = models.Topic;
-
-var upload = multer({
-    dest: 'public/uploads/',
-    limits: {
-        fileSize: 2 * 1024 * 1024 //2 MB
-    }
-});
+    userSession = {}, profile = {};
 
 var routeConfig = function(app, io){
     /**
@@ -42,53 +33,6 @@ var routeConfig = function(app, io){
     app.get('/', function(req, res, next) {
         res.render('profile', { title: 'Profile', userProfile: req.user});
     });
-
-    app.get('/mytopics', function(req, res, next){
-        topicController.getUserTopics(userSession.user, function(error, model){
-            res.render('controls/mytopics', { title: "My topics", userProfile: req.user, myTopics: model});
-        });
-    });
-    app.get('/mytopics/create', function(req, res, next){
-        res.render('controls/createTopic', {title: 'Create Topic', userProfile: req.user});
-    });
-
-    app.get('/topic/:id', function(req,res){
-        res.render('controls/topic', {title: 'Topic'});
-    });
-
-    app.get('/topic/delete/:id', function(req, res){
-        topicController.deleteTopic(req.params.id, function(error, model){
-           res.redirect(req.headers['referer']);
-        });
-    });
-
-    app.post('/mytopics/create', upload.single('picture'), function(req, res, next){
-        var newTopic = new topicModel({
-            name : req.body.topicName,
-            siteUrl : req.body.siteUrl,
-            topicDesc : req.body.description,
-            roomId : uuid.v1(),
-            category : req.body.category,
-            authorId : userSession.user,
-            pictureUrl : '/uploads/' + req.file.filename,
-            available : true,
-            maxUpsPerUser : req.body.maxUps,
-            maxDownsPerUser : req.body.maxDowns
-        });
-        newTopic.save(function(error, model){
-            if(!error){
-                topicController.getUserTopics(userSession.user, function(error, model){
-                    console.log(model);
-                    res.render('controls/mytopics', { title: "My Topics", userProfile: req.user, myTopics: model});
-                });
-            }
-            else {
-                console.log("ERROR SAVING TOPIC: " + error);
-                res.redirect("/mytopics");
-            }
-        });
-    });
-
 
     app.get('/feeds/:roomId', function(req, res, next){
         var roomId = req.params.roomId;
@@ -117,7 +61,7 @@ var routeConfig = function(app, io){
         res.redirect('/home');
     });
 
-    var socketConfig = io.on('connection', function (socket) {
+    io.on('connection', function (socket) {
         socket.userId = userSession.user;
         require('../socket.io')(io,socket, profile);
     });

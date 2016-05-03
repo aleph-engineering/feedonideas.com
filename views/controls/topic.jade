@@ -9,7 +9,7 @@ div(class='col l3 m6 s12')
             a(href="/feeds/"+topic.roomId class='left-align')
                 i(class='material-icons prefix tooltipped' data-tooltip='Feeds' data-position='right' data-delay='50' ) lightbulb_outline
             if topic.canDelete
-                a(id="showDeleteModal" href='#deleteTopicModal' class='left-align modal-trigger' data-delete-url='/topic/delete/'+topic.id)
+                a(href='#deleteTopicModal' class='left-align modal-trigger showDeleteModal' data-delete-url='/topic/delete/'+topic.id)
                     i(class='material-icons prefix tooltipped' data-tooltip='Delete' data-position='right' data-delay='50' ) delete
         div(class="card-reveal")
             span(class="card-title grey-text text-darken-4") #{topic.name}

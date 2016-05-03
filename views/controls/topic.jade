@@ -7,10 +7,10 @@ div(class='col l3 m6 s12')
             span(class="card-title activator grey-text text-darken-4")
                 i(class="material-icons right") more_vert
             a(href="/feeds/"+topic.roomId class='left-align')
-                i(class='material-icons prefix tooltipped' data-tooltip='Feeds' data-position='right' data-delay='50' ) lightbulb_outline
+                i(class='material-icons prefix tooltipped' data-tooltip='Feeds' data-position='bottom' data-delay='50' ) lightbulb_outline
             if topic.canDelete
                 a(href='#deleteTopicModal' class='left-align modal-trigger showDeleteModal' data-delete-url='/topic/delete/'+topic.id)
-                    i(class='material-icons prefix tooltipped' data-tooltip='Delete' data-position='right' data-delay='50' ) delete
+                    i(class='material-icons prefix tooltipped' data-tooltip='Delete' data-position='bottom' data-delay='50' ) delete
         div(class="card-reveal")
             span(class="card-title grey-text text-darken-4") #{topic.name}
                 i(class="material-icons right") close

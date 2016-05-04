@@ -65,7 +65,7 @@ const topicRoutes = function(app){
             roomId : uuid.v1(),
             category : req.body.category,
             authorId : req.user.id,
-            pictureUrl : req.file.location,
+            pictureUrl : req.file ? req.file.location : '/images/image-empty.png',
             available : true,
             maxUpsPerUser : req.body.maxUps,
             maxDownsPerUser : req.body.maxDowns

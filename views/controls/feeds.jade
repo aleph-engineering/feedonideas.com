@@ -25,6 +25,8 @@ block main
                             i(class='material-icons') thumb_down
                         a(class='waves-effect waves-circle waves-light btn-floating voteUp' data-feed=item._id.toString())
                             i(class='material-icons') thumb_up
+        else
+            p(class="grey-text flow-text") Looks like there are no feeds related to this project yet. Why don't you create one?
 
     div(class="fixed-action-btn" style="bottom: 45px; right: 24px")
         a(id='createFeedLink' class="btn-floating btn-large cyan darken-4" href="#createFeed")

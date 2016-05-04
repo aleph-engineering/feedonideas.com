@@ -1,10 +1,12 @@
 'use strict';
 const controllers = require('../controllers'),
-    models = require('../models');
+    models = require('../models'),
+    url = require('url');
 
 var userController = controllers.userController,
     topicController= controllers.topicController,
     feedController = controllers.feedController,
+    AuthorizedUrlModel = require('../models').AuthorizedUrl,
     userSession = {}, profile = {};
 
 var routeConfig = function(app, io){
@@ -12,16 +14,29 @@ var routeConfig = function(app, io){
      * Require always for authentication
      */
     app.use(function(req, res, next) {
-        if(req.url == "/api/feedremote.js") return next();
         if (req.user) {
             userSession = req.session.passport;
             profile = req.user;
-            next();
-        } else {
-            res.render('home');
+            return next();
         }
+        else {
+            validateUrl(req.headers['referer'], (error, model) => {
+                if (model) {
+                    req.clientTopic = model.topicId;
+                    return next();
+                }
+                else{
+                    res.render('/home');
+                }
+            });
+        }
+
     });
 
+    app.get('/auth/client', function(req, res){
+        console.log(req.clientTopic);
+        res.jsonp({topic: req.clientTopic});
+    });
     require('./topicsRoutes')(app); // Routes for topics
     require('./apiRoutes')(app); //Routes for apis
 
@@ -65,6 +80,18 @@ var routeConfig = function(app, io){
         require('../socket.io')(io,socket, profile);
     });
 };
+
+/***** helpers *****/
+function validateUrl(clientUrl, callback){
+    var parsedUrl = url.parse(clientUrl);
+    var URL = parsedUrl.protocol + '//' +parsedUrl.host;
+
+    if (typeof callback === "function") {
+        AuthorizedUrlModel.findOne({ url: URL},(error, model)  =>{
+            callback(error, model);
+        })
+    }
+}
 
 module.exports = routeConfig;
 

@@ -111,6 +111,12 @@ var TokenSchema   = new Schema({
     userId: { type: String, required: true },
     clientId: { type: String, required: true }
 });
+var AuthorizedUrlSchema = new Schema({
+    url         : { type: String },
+    ownerId     : { type: String },
+    topicId     : { type: String },
+    enabled     : { type: Boolean, default: true}
+});
 
 module.exports = {
     GoogleUser: mongoose.model('googleUser', GoogleUserSchema),
@@ -122,6 +128,7 @@ module.exports = {
     Topic: mongoose.model('topic', TopicSchema),
     Comment: mongoose.model('comment', CommentSchema),
     CrashLog : mongoose.model('crashLog', CrashLogSchema),
-    Token: mongoose.model('token', TokenSchema)
+    Token: mongoose.model('token', TokenSchema),
+    AuthorizedUrl: mongoose.model('authorized_url', AuthorizedUrlSchema)
 };
 

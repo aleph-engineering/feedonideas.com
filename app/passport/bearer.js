@@ -24,6 +24,7 @@ const tokenConfig = function(app){
     }));
 
     app.get('/auth/client', passport.authenticate('bearer', {session: false}), function(req, res){
+        console.log("cojone");
         res.json(req.user);
     });
 };

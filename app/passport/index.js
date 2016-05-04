@@ -25,6 +25,7 @@ const passportConfig = function(app){
     require('./google')(app);
     require('./linkedin')(app);
     require('./github')(app);
+    //require('./bearer')(app);
 };
 
 module.exports = passportConfig;

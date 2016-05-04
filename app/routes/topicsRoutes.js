@@ -1,18 +1,40 @@
 'use strict';
 
-const multer = require('multer'),
-    uuid = require('uuid');
+const aws = require('aws-sdk'),
+    multer = require('multer'),
+    multerS3 = require('multer-s3'),
+    uuid = require('uuid'),
+    path = require('path');
 
 const topicModel = require('../models').Topic,
     tokenModel = require('../models').Token,
     topicController = require('../controllers').topicController;
 
+
+/****************************
+ * S3 Storage configuration *
+ ****************************/
+aws.config.update({
+    accessKeyId: process.env.FOI_AMAZON_S3_KEY_ID,
+    secretAccessKey: process.env.FOI_AMAZON_S3_ACCESS_KEY
+});
+aws.config.region = "ap-southeast-1";
+var s3 = new aws.S3();
 var upload = multer({
-    dest: 'public/uploads/',
+    storage: multerS3({
+        s3: s3,
+        acl: 'public-read',
+        bucket: 'feedonideas.com',
+        key: function (req, file, cb) {
+            var ext = path.extname(file.originalname);
+            cb(null, 'topic_covers/' + Date.now().toString() + ext);
+        }
+    }),
     limits: {
         fileSize: 2 * 1024 * 1024 //2 MB
     }
 });
+
 
 const topicRoutes = function(app){
 
@@ -43,7 +65,7 @@ const topicRoutes = function(app){
             roomId : uuid.v1(),
             category : req.body.category,
             authorId : req.user.id,
-            pictureUrl : '/uploads/' + req.file.filename,
+            pictureUrl : req.file.location,
             available : true,
             maxUpsPerUser : req.body.maxUps,
             maxDownsPerUser : req.body.maxDowns

@@ -4,6 +4,7 @@ const multer = require('multer'),
     uuid = require('uuid');
 
 const topicModel = require('../models').Topic,
+    tokenModel = require('../models').Token,
     topicController = require('../controllers').topicController;
 
 var upload = multer({
@@ -49,6 +50,14 @@ const topicRoutes = function(app){
         });
         newTopic.save(function(error, model){
             if(!error){
+                var token = new tokenModel({
+                    value: uuid.v1(),
+                    userId: req.user.id,
+                    clientId: model._id
+                });
+                token.save(function(error, model){
+                    if(error){ console.log(error);}
+                });
                 topicController.getUserTopics(req.user.id, function(error, model){
                     console.log(model);
                     res.render('controls/mytopics', { title: "My Topics", userProfile: req.user, myTopics: model});

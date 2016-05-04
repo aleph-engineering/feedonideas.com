@@ -2,7 +2,8 @@
 
 const models = require('../models'),
     userProfile = models.UserProfile,
-    topic = models.Topic;
+    topic = models.Topic,
+    feed = models.Feed;
 
 
 function addDeletePermissions(currentUserId, topics){
@@ -63,7 +64,13 @@ var topicController = {
     deleteTopic(topicId, callback){
         if (typeof callback === "function") {
             topic.findByIdAndRemove(topicId, function(error, model){
-                callback(error, model);
+                if (!error) {
+                    feed.remove({topicId: topicId}, function(error){
+                        callback(error, model);
+                    });
+                } else {
+                    callback(error, model);
+                }
             });
         }
     },

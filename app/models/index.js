@@ -84,7 +84,7 @@ const UserProfileSchema = new Schema({
 });
 
 const TopicSchema = new Schema({
-    name            : { type: String, unique: true },
+    name            : { type: String, unique: true, required: true },
     category        : { type: String },
     roomId          : { type: String, unique: true },
     authorId        : { type: String },
@@ -106,6 +106,12 @@ const CrashLogSchema = new Schema({
     text            : { type: String }
 });
 
+var TokenSchema   = new Schema({
+    value: { type: String, required: true },
+    userId: { type: String, required: true },
+    clientId: { type: String, required: true }
+});
+
 module.exports = {
     GoogleUser: mongoose.model('googleUser', GoogleUserSchema),
     FacebookUser: mongoose.model('facebookUser', FacebookUserSchema),
@@ -115,6 +121,7 @@ module.exports = {
     Feed: mongoose.model('feed', FeedSchema),
     Topic: mongoose.model('topic', TopicSchema),
     Comment: mongoose.model('comment', CommentSchema),
-    CrashLog : mongoose.model('crashLog', CrashLogSchema)
+    CrashLog : mongoose.model('crashLog', CrashLogSchema),
+    Token: mongoose.model('token', TokenSchema)
 };
 

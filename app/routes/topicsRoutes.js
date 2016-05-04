@@ -8,6 +8,7 @@ const aws = require('aws-sdk'),
 
 const topicModel = require('../models').Topic,
     tokenModel = require('../models').Token,
+    authorizedUrlModel = require('../models').AuthorizedUrl,
     topicController = require('../controllers').topicController;
 
 
@@ -72,13 +73,15 @@ const topicRoutes = function(app){
         });
         newTopic.save(function(error, model){
             if(!error){
-                var token = new tokenModel({
-                    value: uuid.v1(),
-                    userId: req.user.id,
-                    clientId: model._id
+                console.log(newTopic._id);
+                var authorizedUrl = new authorizedUrlModel({
+                    url: newTopic.siteUrl,
+                    ownerId: req.user.id,
+                    topicId: newTopic._id
                 });
-                token.save(function(error, model){
-                    if(error){ console.log(error);}
+                authorizedUrl.save(function (error, model){
+                    if(error) {
+                        console.log(error);}
                 });
                 topicController.getUserTopics(req.user.id, function(error, model){
                     console.log(model);

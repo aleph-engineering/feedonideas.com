@@ -6,3 +6,5 @@ block main
         if topics.length > 0
             each topic in topics
                 include controls/topic
+        else
+            p(class="grey-text flow-text") Looks like there are no topics yet.

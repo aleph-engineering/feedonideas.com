@@ -7,6 +7,7 @@ const aws = require('aws-sdk'),
     path = require('path');
 
 const topicModel = require('../models').Topic,
+    userModel = require('../models').UserProfile,
     tokenModel = require('../models').Token,
     authorizedUrlModel = require('../models').AuthorizedUrl,
     topicController = require('../controllers').topicController;
@@ -59,6 +60,10 @@ const topicRoutes = function(app){
     });
 
     app.post('/mytopics/create', upload.single('picture'), function(req, res, next){
+        var anonymousUser = new userModel({
+            name: "anonymous_" + req.body.topicName,
+            loginAvatarUrl: "/images/empty_avatar.jpg"
+        });
         var newTopic = new topicModel({
             name : req.body.topicName,
             siteUrl : req.body.siteUrl,
@@ -66,6 +71,7 @@ const topicRoutes = function(app){
             roomId : uuid.v1(),
             category : req.body.category,
             authorId : req.user.id,
+            anonymousUser: anonymousUser._id,
             pictureUrl : req.file ? req.file.location : '/images/image-empty.png',
             available : true,
             maxUpsPerUser : req.body.maxUps,
@@ -74,6 +80,9 @@ const topicRoutes = function(app){
         newTopic.save(function(error, model){
             if(!error){
                 console.log(newTopic._id);
+                anonymousUser.save((error, model)=>{
+                    if(error) console.log("Error saving anoonymous user");
+                });
                 var authorizedUrl = new authorizedUrlModel({
                     url: newTopic.siteUrl,
                     ownerId: req.user.id,

@@ -20,17 +20,18 @@ var routeConfig = function(app, io){
             return next();
         }
         else {
-            validateUrl(req.headers['referer'], (error, model) => {
-                if (model) {
-                    req.clientTopic = model.topicId;
-                    return next();
-                }
-                else{
-                    res.render('/home');
-                }
-            });
+            if(req.headers['referer']){
+                validateUrl(req.headers['referer'], (error, model) => {
+                    if (model) {
+                        req.clientTopic = model.topicId;
+                        return next();
+                    }
+                });
+            }
+            else{
+                res.render('/home');
+            }
         }
-
     });
 
     app.get('/auth/client', function(req, res){

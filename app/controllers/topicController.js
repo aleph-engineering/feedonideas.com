@@ -87,7 +87,15 @@ var topicController = {
                 callback(error, model);
             })
         }
-    }
+    },
+     getTopicById(topicId, callback){
+         if (typeof callback === "function") {
+             topic.findById(topicId, (error, model) =>{
+                 callback(error, model);
+             })
+         }
+     }
+
 
 
 };

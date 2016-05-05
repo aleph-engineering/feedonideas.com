@@ -88,6 +88,7 @@ const TopicSchema = new Schema({
     category        : { type: String },
     roomId          : { type: String, unique: true },
     authorId        : { type: String },
+    anonymousUser   : { type: String },
     pictureUrl      : { type: String },
     siteUrl         : { type: String },
     topicDesc       : { type: String },

@@ -1,7 +1,9 @@
 'use strict';
 
 const feedModel = require('../models').Feed,
-    feedController = require('../controllers').feedController;
+    feedController = require('../controllers').feedController,
+    userController = require('../controllers').userController,
+    topicController = require('../controllers').topicController;
 
 var feedsApi = function(app){
     app.get('/api/feeds/',(req, res)=>{
@@ -14,9 +16,28 @@ var feedsApi = function(app){
                 res.jsonp({feeds: model});
         })
     });
-    app.post('/api/feeds/create', (req, res) => {
-        var body = req.query.body, authorEmail = req.body.author;
-
+    app.get('/api/feeds/create/', (req, res) => {
+        var body = req.query.body, authorEmail = req.query.author;
+        if(authorEmail){
+            userController.checkProfileExist(authorEmail, (error, user) => {
+                if(user){
+                    feedController.saveNewFeedWithTopicId(req.clientTopic,user._id, body, (error, model)=>{});
+                }
+                else{
+                    userController.createNonRegisteredUser(authorEmail, (error, model) =>{
+                        feedController.saveNewFeedWithTopicId(req.clientTopic, model._id, body, (error, model) => {})
+                    })
+                }
+            });
+            res.jsonp("Feed registered successfully");
+        }
+        else{
+            topicController.getTopicById(req.clientTopic, (error, topic) =>{
+                feedController.saveNewFeedWithTopicId(topic._id, topic.anonymousUser, body, (error, model) =>{
+                    res.jsonp("Feed registered successfullfeeds[item].bodyy");
+                })
+            })
+        }
     })
 };
 

@@ -29,7 +29,7 @@ var routeConfig = function(app, io){
                 });
             }
             else{
-                res.render('/home');
+                res.render('home');
             }
         }
     });

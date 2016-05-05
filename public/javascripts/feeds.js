@@ -69,6 +69,7 @@ function receiveFeedCreated(socket, grid){
         console.log(data);
         var feed = data.feed;
         var element = $(createHTMLFeedElement(feed._id, feed.authorAvatar, feed.body));
+        $("#emptyNotification").remove();
         grid.append(element).masonry( 'appended', element );
         reloadHandlers(socket);
     });

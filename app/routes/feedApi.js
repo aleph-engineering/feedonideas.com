@@ -27,7 +27,7 @@ var feedsApi = function(app){
                 }
                 else{
                     userController.createNonRegisteredUser(authorEmail, (error, model) =>{
-                        feedController.saveNewFeedWithTopicId(req.clientTopic, model._id, body, (error, model) => {})
+                        feedController.saveNewFeedWithTopicId(req.clientTopic, model._id, model.loginAvatarUrl ,body, (error, model) => {})
                     })
                 }
             });

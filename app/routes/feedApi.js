@@ -17,8 +17,10 @@ var feedsApi = function(app){
         })
     });
     app.get('/api/feeds/create/', (req, res) => {
-        var body = req.query.body, authorEmail = req.query.author;
-        if(authorEmail){
+        var body = req.query.body,
+            authorEmail = req.query.author,
+            emailRegex = '/.+@.+/';
+        if(authorEmail && emailRegex.test(authorEmail)){
             userController.checkProfileExist(authorEmail, (error, user) => {
                 if(user){
                     feedController.saveNewFeedWithTopicId(req.clientTopic,user._id, user.loginAvatarUrl ,body, (error, model)=>{});

@@ -1,5 +1,8 @@
 "use strict";
-const foiCookieName = "foi";
+const foiCookieName = "foi",
+    authenticationUrl = 'http://www.feedonideas.com/auth/client',
+    getFeedsUrl = 'http://www.feedonideas.com/api/feeds/',
+    sendFeedUrl = 'http://www.feedonideas.com/api/feeds/create/';
 $(function(){
     var $body = $('body');
     var currentTopic = "";
@@ -99,7 +102,8 @@ function sendFeedButtonClick(){
             feedText = textarea.val();
         console.log("FEED TEXT " +feedText);
         if(feedText) {
-            var email = readCookie(foiCookieName).replace(/%40/i, '@');
+            var emailFromCookie = readCookie(foiCookieName),
+                email = emailFromCookie? emailFromCookie.replace(/%40/i, '@'): null;
             $('.foi-create-panel')[0].reset();
             sendFeed(feedText, email, function (data) {
                 console.log(data);
@@ -110,7 +114,7 @@ function sendFeedButtonClick(){
 function authenticate(callback){
     if (typeof callback === "function") {
         $.ajax({
-                url: 'http://www.feedonideas.com/auth/client',
+                url: authenticationUrl,
                 method: 'GET',
                 crossDomain: true,
                 dataType:'jsonp'
@@ -127,7 +131,7 @@ function authenticate(callback){
 function getLastFeeds(topic, callback){
     if (typeof callback === "function") {
         $.ajax({
-                url: 'http://www.feedonideas.com/api/feeds/',
+                url: getFeedsUrl,
                 method: 'GET',
                 data: {topic: topic},
                 crossDomain: true,
@@ -146,7 +150,7 @@ function getLastFeeds(topic, callback){
 function sendFeed(body, email, callback){
     if (typeof callback === "function") {
         $.ajax({
-                url: 'http://www.feedonideas.com/api/feeds/create/',
+                url: sendFeedUrl,
                 method: 'GET',
                 data: {body: body, author: email},
                 crossDomain: true,

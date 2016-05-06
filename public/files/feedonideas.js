@@ -1,6 +1,6 @@
 "use strict";
 const foiCookieName = "foi",
-    authenticationUrl = 'http://www.feedonideas.com/auth/client',
+    authenticationUrl = 'http://www.feedonideas.com/api/auth/client',
     getFeedsUrl = 'http://www.feedonideas.com/api/feeds/',
     sendFeedUrl = 'http://www.feedonideas.com/api/feeds/create/';
 $(function(){

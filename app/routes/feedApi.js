@@ -19,7 +19,7 @@ var feedsApi = function(app){
     app.get('/api/feeds/create/', (req, res) => {
         var body = req.query.body,
             authorEmail = req.query.author,
-            emailRegex = '/.+@.+/';
+            emailRegex = /.+@.+/;
         if(authorEmail && emailRegex.test(authorEmail)){
             userController.checkProfileExist(authorEmail, (error, user) => {
                 if(user){

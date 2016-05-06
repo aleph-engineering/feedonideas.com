@@ -103,7 +103,7 @@ function sendFeedButtonClick(){
         console.log("FEED TEXT " +feedText);
         if(feedText) {
             var emailFromCookie = readCookie(foiCookieName),
-                emailRegex = '/.+@.+/',
+                emailRegex = /.+@.+/,
                 email = emailFromCookie ? emailFromCookie.replace(/%40/i, '@') : null;
             email = emailRegex.test(email) ? email : null;
             $('.foi-create-panel')[0].reset();

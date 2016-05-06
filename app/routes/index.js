@@ -26,6 +26,7 @@ var routeConfig = function(app, io){
                         req.clientTopic = model.topicId;
                         return next();
                     }
+                    res.render('home');
                 });
             }
             else{

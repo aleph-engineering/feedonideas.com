@@ -12,12 +12,11 @@ block main
                     div(class='item-header')
                         img(class='responsive-img circle' src=item.authorAvatar)
                         div(class='chip-like')
-                            i(class='material-icons') thumb_up
-                            label(class="right ups-counter") #{item.ups.length}
-                        div(class='chip-like')
                             i(class='material-icons') thumb_down
                             label(class="right downs-counter") #{item.downs.length}
-
+                        div(class='chip-like')
+                            i(class='material-icons') thumb_up
+                            label(class="right ups-counter") #{item.ups.length}
                     div(class="item-content")
                         label #{item.body}
                     div(class='item-footer')

@@ -20,7 +20,7 @@ var routeConfig = function(app, io){
             return next();
         }
         else {
-            if(req.headers['referer']){
+            if(req.headers['referer'] && req.url.match(/api\/.+/)){
                 validateUrl(req.headers['referer'], (error, model) => {
                     if (model) {
                         req.clientTopic = model.topicId;
@@ -35,7 +35,7 @@ var routeConfig = function(app, io){
         }
     });
 
-    app.get('/auth/client', function(req, res){
+    app.get('/api/auth/client', function(req, res){
         if(req.clientTopic) {
             validateUrl(req.headers['referer'], (error, model) => {
                 if (model) {

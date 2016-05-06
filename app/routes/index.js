@@ -35,7 +35,13 @@ var routeConfig = function(app, io){
     });
 
     app.get('/auth/client', function(req, res){
-        console.log(req.clientTopic);
+        if(req.clientTopic) {
+            validateUrl(req.headers['referer'], (error, model) => {
+                if (model) {
+                    req.clientTopic = model.topicId;
+                }
+            });
+        }
         res.jsonp({topic: req.clientTopic});
     });
     require('./topicsRoutes')(app); // Routes for topics

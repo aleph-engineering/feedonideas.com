@@ -1,5 +1,5 @@
 "use strict";
-const foiCookieName = "foiUserEmail";
+const foiCookieName = "foi";
 $(function(){
     var $body = $('body');
     var currentTopic = "";

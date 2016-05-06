@@ -33,9 +33,11 @@ var feedsApi = function(app){
         }
         else{
             topicController.getTopicById(req.clientTopic, (error, topic) =>{
-                feedController.saveNewFeedWithTopicId(topic._id, topic.anonymousUser, body, (error, model) =>{
-                    res.jsonp("Feed registered successfully");
-                })
+                userController.getUserById(topic.anonymousUser, (error, user) => {
+                    feedController.saveNewFeedWithTopicId(topic._id, topic.anonymousUser, user.loginAvatarUrl ,body, (error, model) =>{
+                        res.jsonp("Feed registered successfully");
+                    })
+                });
             })
         }
     })

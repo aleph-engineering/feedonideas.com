@@ -5,11 +5,12 @@ const models = require('../models'),
     feed = models.Feed;
 
 var feedController = {
-    saveNewFeedWithTopicId(topicId, authorId, text, callback){
+    saveNewFeedWithTopicId(topicId, authorId, avatar ,text, callback){
         if (typeof callback === "function") {
             var newFeed = new feed({
                 topicId: topicId,
                 authorId: authorId,
+                authorAvatar: avatar,
                 body: text
             });
             newFeed.save(function(error, model){

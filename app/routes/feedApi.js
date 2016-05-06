@@ -21,7 +21,7 @@ var feedsApi = function(app){
         if(authorEmail){
             userController.checkProfileExist(authorEmail, (error, user) => {
                 if(user){
-                    feedController.saveNewFeedWithTopicId(req.clientTopic,user._id, body, (error, model)=>{});
+                    feedController.saveNewFeedWithTopicId(req.clientTopic,user._id, user.loginAvatarUrl ,body, (error, model)=>{});
                 }
                 else{
                     userController.createNonRegisteredUser(authorEmail, (error, model) =>{
@@ -34,7 +34,7 @@ var feedsApi = function(app){
         else{
             topicController.getTopicById(req.clientTopic, (error, topic) =>{
                 feedController.saveNewFeedWithTopicId(topic._id, topic.anonymousUser, body, (error, model) =>{
-                    res.jsonp("Feed registered successfullfeeds[item].bodyy");
+                    res.jsonp("Feed registered successfully");
                 })
             })
         }

@@ -48,20 +48,18 @@ function lazyLoading($body, callback){
 function getSingleBox(){
     return '<div class="foi-box">' +
         '<div class="foi-icon-box">' +
-        '<img src="https://s3-ap-southeast-1.amazonaws.com/feedonideas.com/foi_assets/foi_white_icon.png" class="foi-ico"/>' +
+            '<img src="https://s3-ap-southeast-1.amazonaws.com/feedonideas.com/foi_assets/foi_white_icon.png" class="foi-ico"/>' +
         '</div>' +
         '<div class="foi-info-box" style="display: none">' +
         '<div class="foi-box-header">' +
-        '<label class="foi-header-text">Feed On Ideas</label>' +
-        '<button class="foi-create-feed">+</button>'+
+            '<a class="foi-header-text" href="http://www.feedonideas.com" target="_blank">Feed On Ideas</a>' +
+            '<button class="hide-foi-box"> x </button>'+
         '</div>' +
-        '<ul class="foi-feed-list">' +
-        '</ul>'+
         '<form class="foi-create-panel">' +
-        '<textarea name="feedText" id="feedText" class="new-feed-text" rows="4" placeholder="Type your new feed here"></textarea>' +
-        '<button class="send-new-feed" type="button">Send</button>'+
-        '<button class="cancel-new-feed" type="reset">Back</button>'+
+            '<textarea name="feedText" id="feedText" class="new-feed-text" rows="3" placeholder="Create your own ideas"></textarea>' +
+            '<button class="send-new-feed" type="button">Send</button>'+
         '</form>'+
+        '<ul class="foi-feed-list"></ul>'+
         '</div>' +
         '</div>'
 }
@@ -69,14 +67,14 @@ function getCssFile(){
     return '<link rel="stylesheet" href="https://s3-ap-southeast-1.amazonaws.com/feedonideas.com/foi_assets/feedonideas.css"/>';
 }
 function showFoiPanel(){
-    $('.foi-box').click(()=>{
+    $('.foi-icon-box').click(()=>{
         $('.foi-icon-box').fadeOut(200, () =>{
             $('.foi-info-box').fadeIn(500);
         });
     })
 }
 function hideFoiInfoBox(){
-    $('.foi-box').mouseleave(()=>{
+    $('.hide-foi-box').click(()=>{
         $('.foi-info-box').fadeOut(200, ()=>{
             $('.foi-icon-box').fadeIn(500);
         })
@@ -140,11 +138,9 @@ function getLastFeeds(topic, callback){
                 dataType:'jsonp'
             })
             .success(function(data ) {
-                console.log(data);
                 callback(data.feeds);
             })
             .fail(function(data) {
-                console.log("FAIL");
                 console.log(data)
             });
     }
@@ -159,12 +155,9 @@ function sendFeed(body, email, callback){
                 dataType: 'jsonp'
             })
             .success(function (data) {
-                console.log("SUCCESS");
-                console.log(data);
                 callback(data);
             })
             .fail(function (data) {
-                console.log("FAIL");
                 console.log(data)
             });
     }

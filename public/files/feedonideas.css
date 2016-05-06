@@ -1,6 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+
 .foi-box{
     position: fixed;
-    top: 48%;
+    top: 40%;
     right: 0;
     background-color: rgba(20,20,20,.7);
     -webkit-border-radius: 0 0 3px 3px;
@@ -12,15 +14,18 @@
 }
 .foi-box *{
     color: white;
+    font-family: Comfortaa, serif !important;
 }
 .foi-icon-box:hover, .foi-box:hover{
     transition: opacity .7s;
     opacity: 1;
+}
+.foi-icon-box:hover{
     cursor: pointer;
 }
 .foi-icon-box, .foi-box{
     transition: opacity 1s;
-    opacity: .1;
+    opacity: .5;
 }
 .foi-icon-box img{
     width: 30px;
@@ -47,6 +52,11 @@
     background-color: rgb(0,145,190);
     font-size: 1.15rem;
     float: right;
+    cursor: pointer;
+}
+.foi-create-feed:focus{
+    border: none!important;
+    outline: none;
 }
 ul.foi-feed-list{
     width: 100%;
@@ -54,19 +64,24 @@ ul.foi-feed-list{
     font-size: .75rem;
     color: rgb(50,50,50);
     padding: 0 .8em;
+    list-style-type: none;
 }
 ul.foi-feed-list li:not(:last-child){
     border-bottom: 1px solid rgba(150,150,150,.4);
-    margin-bottom: .4em;
+}
+ul.foi-feed-list li{
+    padding: .6em .2em;
 }
 .foi-feed-list li label{
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     border: 1px solid rgb(200,200,200);
-    padding: 5px;
+    padding: 2px;
     display: inline-block;
     margin-right: .6em;
+    vertical-align: middle;
+    font-size: .85em;
 }
 .foi-feed-list li label.done{
     background-color: rgb(200,200,200);
@@ -85,12 +100,13 @@ ul.foi-feed-list li:not(:last-child){
     float: right;
 }
 .new-feed-text{
-    resize: none;
+    resize: vertical;
     width: 100%;
-    font-size: .75em;
+    font-size: .85em;
     height: auto;
     padding: .5em;
     border: 1px solid rgb(0,145,190);
+    background-color: rgb(100,100,100);
 }
 .cancel-new-feed{
     background-color: rgb(0,0,0);

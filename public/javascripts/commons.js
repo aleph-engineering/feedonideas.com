@@ -16,7 +16,7 @@ function commonsMaterializaActivations(){
     $('select').material_select(); // activate form selects
 }
 function customActivations(){
-    $('#show-logins').click(function(){
+    $('#show-logins').ready(function(){
         $('.login-buttons').removeClass('hide').addClass('animated zoomIn');
     })
 }

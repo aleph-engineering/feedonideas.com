@@ -6,7 +6,7 @@ const feedModel = require('../models').Feed,
     topicController = require('../controllers').topicController;
 
 var feedsApi = function(app){
-    app.get('/api/plugin/auth_client', function(req, res){
+    app.get('/api/plugin/auth_client', (req, res) =>{
         res.jsonp({topic: req.clientTopic});
     });
 

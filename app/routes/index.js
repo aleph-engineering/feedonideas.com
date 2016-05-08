@@ -14,40 +14,28 @@ var routeConfig = function(app, io){
      * Require always for authentication
      */
     app.use(function(req, res, next) {
-        if (req.user) {
+        var referer = req.headers['referer'];
+        if(referer && req.url.match(/api\/plugin\/.+/)){
+            validateUrl(referer, (error, model) => {
+                if (model) {
+                    req.clientTopic = model.topicId;
+                    return next();
+                }
+            });
+        }
+        else if(req.user){
             userSession = req.session.passport;
             profile = req.user;
             return next();
         }
-        else {
-            if(req.headers['referer'] && req.url.match(/api\/.+/)){
-                validateUrl(req.headers['referer'], (error, model) => {
-                    if (model) {
-                        req.clientTopic = model.topicId;
-                        return next();
-                    }
-                    res.render('home');
-                });
-            }
-            else{
-                res.render('home');
-            }
+        else{
+            res.render('home');
         }
     });
 
-    app.get('/api/auth/client', function(req, res){
-        if(req.clientTopic) {
-            validateUrl(req.headers['referer'], (error, model) => {
-                if (model) {
-                    req.clientTopic = model.topicId;
-                }
-            });
-        }
-        res.jsonp({topic: req.clientTopic});
-    });
     require('./topicsRoutes')(app); // Routes for topics
     require('./apiRoutes')(app); //Routes for apis
-    require('./feedApi')(app); //Routes for feeds api
+    require('./pluginAPI')(app); //API for plugin
 
     app.get('/home', function(req, res, next){
         res.render('home');

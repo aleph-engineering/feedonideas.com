@@ -2,7 +2,7 @@
 
 const models = require('../models'),
     userProfile = models.UserProfile,
-    topic = models.Topic,
+    topicModel = models.Topic,
     feed = models.Feed;
 
 
@@ -15,16 +15,9 @@ function addDeletePermissions(currentUserId, topics){
 }
 
 var topicController = {
-    findTopicById(topicId, callback){
-        if (typeof callback === "function") {
-            topic.findById(topicId, function (error, model) {
-                callback(error, model);
-            })
-        }
-    },
     getAllTopics(currentUser, callback){
         if (typeof callback === "function") {
-            topic.find(function(error, model){
+            topicModel.find(function(error, model){
                 model = addDeletePermissions(currentUser.id, model);
                 callback(error, model);
             })
@@ -32,7 +25,7 @@ var topicController = {
     },
     getAvailableTopics(currentUser, callback){
         if (typeof callback === "function") {
-            topic.find({available: true},(error, model)=>{
+            topicModel.find({available: true},(error, model)=>{
                 model = addDeletePermissions(currentUser.id, model);
                 callback(error, model);
             })
@@ -40,7 +33,7 @@ var topicController = {
     },
     getUserTopics(userId, callback){
         if (typeof callback === "function") {
-            topic.find({authorId: userId}, function(error, model){
+            topicModel.find({authorId: userId}, function(error, model){
                 model = addDeletePermissions(userId, model);
                 callback(error, model);
             })
@@ -48,7 +41,7 @@ var topicController = {
     },
     saveNewTopic(name, userId, pictureUrl, siteUrl, description, callback){
         if (typeof callback === "function") {
-            var newTopic = new topic({
+            var newTopic = new topicModel({
                 name: name,
                 roomId: Math.round((Math.random() * 1000000000)),
                 authorId: userId,
@@ -63,7 +56,7 @@ var topicController = {
     },
     deleteTopic(topicId, callback){
         if (typeof callback === "function") {
-            topic.findByIdAndRemove(topicId, function(error, model){
+            topicModel.findByIdAndRemove(topicId, function(error, model){
                 if (!error) {
                     feed.remove({topicId: topicId}, function(error){
                         callback(error, model);
@@ -76,26 +69,25 @@ var topicController = {
     },
     getMaxUps(topicId, callback){
         if (typeof callback === "function") {
-            topic.findById(topicId, function(error, model){
+            topicModel.findById(topicId, function(error, model){
                 callback(error, model.maxUpsPerUser);
             })
         }
     },
     getTopicByRoomId(roomId, callback){
         if (typeof callback === "function") {
-            topic.findOne({roomId: roomId}, function(error, model){
+            topicModel.findOne({roomId: roomId}, function(error, model){
                 callback(error, model);
             })
         }
     },
-     getTopicById(topicId, callback){
-         if (typeof callback === "function") {
-             topic.findById(topicId, (error, model) =>{
-                 callback(error, model);
-             })
-         }
-     }
-
+    getTopicById(topicId, callback){
+        if (typeof callback === "function") {
+            topicModel.findById(topicId, (error, model) => {
+                callback(error, model);
+            });
+        }
+    }
 
 
 };

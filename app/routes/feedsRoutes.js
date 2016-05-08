@@ -8,9 +8,9 @@ var feedsRoutes = function(app){
         if(topicId){
             topicController.getTopicById(topicId, (error, topic) => {
                 if(topic){
-                    feedsController.getFeedsByTopic(topic._id, (error, feeds) => {
+                    feedsController.getFeedsByTopic(topic.id, (error, feeds) => {
                         if(!error){
-                            res.render('controls/feeds', { title: topic.name, feeds: feeds, userProfile: req.user });
+                            res.render('controls/feeds', { title: topic.name, feeds: feeds, topic: topic.id, userProfile: req.user });
                         }
                     })
                 }

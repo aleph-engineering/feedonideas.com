@@ -34,6 +34,7 @@ var routeConfig = function(app, io){
     });
 
     require('./topicsRoutes')(app); // Routes for topics
+    require('./feedsRoutes')(app);
     require('./apiRoutes')(app); //Routes for apis
     require('./pluginAPI')(app); //API for plugin
 
@@ -43,28 +44,6 @@ var routeConfig = function(app, io){
 
     app.get('/', function(req, res, next) {
         res.render('profile', { title: 'Profile', userProfile: req.user});
-    });
-
-    app.get('/feeds/:roomId', function(req, res, next){
-        var roomId = req.params.roomId;
-        console.log("ROOM ID: " + roomId);
-        topicController.getTopicByRoomId(roomId, function(error, topic){
-            if(!error){
-                console.log("TOPIC: " + topic);
-                feedController.getFeedsByTopic(topic._id, function(error, model){
-                    console.log("MODEL: " + model);
-                    res.render('controls/feeds', {title: topic.name ,feeds: model, roomId: roomId, userProfile: req.user});
-                });
-            }
-        });
-    });
-    app.post('/feeds/create/:roomId', function(req, res, next){
-        const body = req.body.feedBody,
-            roomId = req.params.roomId;
-        feedController.saveNewFeedWithRoomId(roomId, userSession.user, body, function(error, model){
-            res.cookie('room.id', roomId);
-            res.render('controls/feeds', {});
-        })
     });
 
     app.get('/logout', function(req,res){

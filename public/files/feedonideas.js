@@ -52,7 +52,7 @@ function getSingleBox(){
         '</div>' +
         '<div class="foi-info-box" style="display: none">' +
         '<div class="foi-box-header">' +
-            '<a class="foi-header-text" href="http://www.feedonideas.com" target="_blank">Feed On Ideas</a>' +
+            '<a class="foi-header-text" href="http://www.feedonideas.com" target="_blank">We Feed On Ideas</a>' +
             '<button class="hide-foi-box"> x </button>'+
         '</div>' +
         '<form class="foi-create-panel">' +

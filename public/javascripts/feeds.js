@@ -1,9 +1,9 @@
 "use strict";
 $(function () {
     var socket = io(),
-        roomId = $('.feeds-room').data('room');
+        topic = $('.feeds-room').data('topic');
     socket.on('connect', function(){
-        socket.emit('enterFeedsRoom', {roomId: roomId})
+        socket.emit('enterFeedsRoom', {topic: topic})
     });
 
     /****** UI ******/

@@ -1,10 +1,10 @@
 extends ../profile
 block main
     - var model = feeds
-    - var room = roomId
+    - var topicId = topic
     script(src='/bower_components/jquery-validation/dist/jquery.validate.js')
     link(rel='stylesheet' href='/stylesheets/controls/feeds.css')
-    div(class='grid feeds-room' data-room=room)
+    div(class='grid feeds-room' data-topic=topicId)
         div(class='grid-sizer')
         if model.length > 0
             each item in model

@@ -6,7 +6,11 @@ const feedModel = require('../models').Feed,
     topicController = require('../controllers').topicController;
 
 var feedsApi = function(app){
-    app.get('/api/feeds/',(req, res)=>{
+    app.get('/api/plugin/auth_client', function(req, res){
+        res.jsonp({topic: req.clientTopic});
+    });
+
+    app.get('/api/plugin/feeds/',(req, res)=>{
         let topicId = req.query.topic;
         var query = feedModel.find({topicId: topicId});
         query.limit(5);
@@ -16,7 +20,7 @@ var feedsApi = function(app){
                 res.jsonp({feeds: model});
         })
     });
-    app.get('/api/feeds/create/', (req, res) => {
+    app.get('/api/plugin/feeds/create/', (req, res) => {
         var body = req.query.body,
             authorEmail = req.query.author,
             emailRegex = /.+@.+/;

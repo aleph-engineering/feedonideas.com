@@ -1,8 +1,8 @@
 "use strict";
 const foiCookieName = "foi",
-    authenticationUrl = 'http://www.feedonideas.com/api/auth/client',
-    getFeedsUrl = 'http://www.feedonideas.com/api/feeds/',
-    sendFeedUrl = 'http://www.feedonideas.com/api/feeds/create/';
+    authenticationUrl = 'http://www.feedonideas.com/api/plugin/auth_/client',
+    getFeedsUrl = 'http://www.feedonideas.com/api/plugin/feeds/',
+    sendFeedUrl = 'http://www.feedonideas.com/api/plugin/feeds/create/';
 $(function(){
     var $body = $('body');
     var currentTopic = "";

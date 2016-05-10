@@ -36,7 +36,7 @@ var routeConfig = function(app, io){
     require('./topicsRoutes')(app); // Routes for topics
     require('./feedsRoutes')(app);
     require('./apiRoutes')(app); //Routes for apis
-    require('./pluginAPI')(app); //API for plugin
+    require('./pluginAPI')(app, io); //API for plugin
 
     app.get('/home', function(req, res, next){
         res.render('home');

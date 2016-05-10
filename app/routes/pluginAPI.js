@@ -5,7 +5,7 @@ const feedModel = require('../models').Feed,
     userController = require('../controllers').userController,
     topicController = require('../controllers').topicController;
 
-var feedsApi = function(app){
+var feedsApi = function(app, io){
     app.get('/api/plugin/auth_client', (req, res) =>{
         res.jsonp({topic: req.clientTopic});
     });
@@ -27,15 +27,21 @@ var feedsApi = function(app){
         if(authorEmail && emailRegex.test(authorEmail)){
             userController.checkProfileExist(authorEmail, (error, user) => {
                 if(user){
-                    feedController.saveNewFeedWithTopicId(req.clientTopic,user._id, user.loginAvatarUrl ,body, (error, model)=>{});
+                    feedController.saveNewFeedWithTopicId(req.clientTopic,user._id, user.loginAvatarUrl ,body, (error, model)=>{
+                        io.in(req.clientTopic).emit('feedCreated', {feed: model});
+                        res.jsonp("Feed registered successfully");
+                    });
                 }
                 else{
                     userController.createNonRegisteredUser(authorEmail, (error, model) =>{
-                        feedController.saveNewFeedWithTopicId(req.clientTopic, model._id, model.loginAvatarUrl ,body, (error, model) => {})
+                        feedController.saveNewFeedWithTopicId(req.clientTopic, model._id, model.loginAvatarUrl ,body, (error, model) => {
+                            io.in(req.clientTopic).emit('feedCreated', {feed: model});
+                            res.jsonp("Feed registered successfully");
+                        })
                     })
                 }
             });
-            res.jsonp("Feed registered successfully");
+
         }
         else{
             topicController.getTopicById(req.clientTopic, (error, topic) =>{
@@ -43,6 +49,7 @@ var feedsApi = function(app){
                 console.log(topic);
                 userController.getUserById(topic.anonymousUser, (error, user) => {
                     feedController.saveNewFeedWithTopicId(topic._id, topic.anonymousUser, user.loginAvatarUrl ,body, (error, model) =>{
+                        io.in(req.clientTopic).emit('feedCreated', {feed: model});
                         res.jsonp("Feed registered successfully");
                     })
                 });
